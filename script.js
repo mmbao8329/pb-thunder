@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 
-// === DÁN FIREBASE CONFIG CỦA BẠN VÀO ĐÂY ===
+// Khóa kết nối Firebase của bạn
 const firebaseConfig = {
   apiKey: "AIzaSyDAkQ1ZV2Zh70BTgBtFwvLzLbUd8W6AuCs",
   authDomain: "pb-thunder.firebaseapp.com",
@@ -15,8 +15,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Biến kiểm tra xem đã đăng nhập chưa
 window.isUserLoggedIn = false;
+
+// HÀM GỌI THÔNG BÁO TỰ TẠO (Thay thế Alert)
+window.showPbAlert = function(title, message) {
+    document.getElementById("pbAlertTitle").innerHTML = title;
+    document.getElementById("pbAlertMessage").innerHTML = message;
+    document.getElementById("pbAlertModal").style.display = "flex";
+}
 
 let isLoginMode = true;
 window.toggleAuthMode = function() {
@@ -35,6 +41,7 @@ window.toggleAuthMode = function() {
     }
 }
 
+// XỬ LÝ NÚT ĐĂNG KÝ / ĐĂNG NHẬP
 document.getElementById("authForm").addEventListener("submit", (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value;
@@ -42,34 +49,41 @@ document.getElementById("authForm").addEventListener("submit", (e) => {
     const displayName = document.getElementById("displayName").value;
 
     if (!isLoginMode) {
+        // Tạo tài khoản
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 updateProfile(userCredential.user, { displayName: displayName })
                 .then(() => {
-                    alert("Đăng ký thành công! Chào mừng " + displayName);
                     document.getElementById("authModal").style.display = "none";
-                    location.reload(); 
+                    showPbAlert("✨ Kích Hoạt Thành Công", `Chào mừng lính mới: <b>${displayName}</b>! <br>Hệ thống đang tải lại...`);
+                    setTimeout(() => location.reload(), 2000); 
                 });
             })
-            .catch((error) => { alert("Lỗi đăng ký: " + error.message); });
+            .catch((error) => { 
+                showPbAlert("❌ Cảnh Báo", "Lỗi đăng ký: <br>" + error.message); 
+            });
     } else {
+        // Đăng nhập
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                alert("Đăng nhập thành công!");
                 document.getElementById("authModal").style.display = "none";
+                showPbAlert("⚡ Đăng Nhập Thành Công", "Sức mạnh sấm sét đã sẵn sàng!");
             })
-            .catch((error) => { alert("Sai email hoặc mật khẩu!"); });
+            .catch((error) => { 
+                showPbAlert("❌ Lỗi Truy Cập", "Sai email hoặc mật khẩu!<br>Vui lòng kiểm tra lại."); 
+            });
     }
 });
 
+// XỬ LÝ ĐĂNG XUẤT
 document.getElementById("logoutBtn").addEventListener("click", () => {
     signOut(auth).then(() => { 
-        alert("Đã đăng xuất!"); 
         window.isUserLoggedIn = false;
+        showPbAlert("👋 Tạm Biệt", "Đã ngắt kết nối khỏi hệ thống P&B Thunder.");
     });
 });
 
-// THEO DÕI TRẠNG THÁI NGƯỜI DÙNG & CẬP NHẬT BIẾN GLOBAL
+// THEO DÕI NGƯỜI DÙNG ONLINE/OFFLINE
 onAuthStateChanged(auth, (user) => {
     if (user) {
         window.isUserLoggedIn = true;
@@ -85,15 +99,21 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-// XỬ LÝ NÚT XEM CHI TIẾT DỊCH VỤ
+// XỬ LÝ NÚT "XEM CHI TIẾT" DỊCH VỤ
 window.handleServiceClick = function(serviceName) {
     if (window.isUserLoggedIn) {
-        // Nếu đã đăng nhập thì báo thông tin liên hệ
-        alert(`Bạn đang chọn ${serviceName}. \nHãy liên hệ Admin qua Zalo/Facebook: 0987.xxx.xxx để trao đổi chi tiết nhé!`);
+        showPbAlert("⚡ Yêu Cầu Dịch Vụ", `Bạn đang chọn: <b>${serviceName}</b>.<br><br>Hãy liên hệ Admin qua Zalo/Facebook:<br><b>0987.xxx.xxx</b> để trao đổi chi tiết nhé!`);
     } else {
-        // Nếu chưa thì bật form đăng nhập lên
-        alert("Vui lòng đăng nhập để xem chi tiết và liên hệ dịch vụ!");
-        document.getElementById("authModal").style.display = "flex";
+        showPbAlert("⚠️ Cần Ủy Quyền", "Vui lòng <b>Đăng nhập</b> vào hệ thống để xem chi tiết và liên hệ dịch vụ!");
+        
+        // Khi người dùng bấm "Đã hiểu", bảng thông báo sẽ đóng và bảng Đăng nhập tự động nhảy lên
+        const pbBtn = document.getElementById("pbAlertBtn");
+        pbBtn.onclick = function() {
+            document.getElementById("pbAlertModal").style.display = "none";
+            document.getElementById("authModal").style.display = "flex";
+            // Trả lại chức năng đóng bình thường cho nút sau khi dùng xong
+            pbBtn.onclick = function() { document.getElementById("pbAlertModal").style.display = "none"; };
+        };
     }
 }
 

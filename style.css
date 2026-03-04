@@ -1,12 +1,9 @@
-/* TỔNG QUAN */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
 body { background: linear-gradient(135deg, #0a0a0a 0%, #171717 100%); color: #ffffff; min-height: 100vh; overflow-x: hidden; }
 
-/* HIỆU ỨNG TEXT VÀ GLASS (KÍNH MỜ) */
 .gradient-text { background: linear-gradient(90deg, #ffcc00, #ff8800); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
 .glass-panel { background: rgba(30, 30, 30, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); }
 
-/* HEADER */
 header { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); position: sticky; top: 0; background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(10px); z-index: 100;}
 .logo { font-size: 26px; font-weight: bold; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.3s;}
 .logo:hover { transform: scale(1.05); }
@@ -20,7 +17,6 @@ nav a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -
 nav a:hover, nav a.active { color: #ffffff; }
 nav a:hover::after, nav a.active::after { width: 100%; }
 
-/* NÚT BẤM */
 .login-btn { padding: 10px 24px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 15px;}
 .glow-btn { background: linear-gradient(45deg, #ffcc00, #ffaa00); color: #000; border: none; box-shadow: 0 0 15px rgba(255, 204, 0, 0.4); }
 .glow-btn:hover { box-shadow: 0 0 25px rgba(255, 204, 0, 0.7); transform: translateY(-2px); }
@@ -31,7 +27,6 @@ nav a:hover::after, nav a.active::after { width: 100%; }
 
 .user-greeting { color: #ffcc00; font-weight: bold; font-size: 16px;}
 
-/* MAIN CONTENT */
 main { display: flex; padding: 80px 50px; align-items: center; justify-content: space-between; gap: 50px; }
 .hero-content { flex: 1; max-width: 600px; animation: fadeIn 1s ease-in-out; }
 .hero-content h1 { font-size: 56px; margin-bottom: 20px; line-height: 1.1; }
@@ -41,12 +36,10 @@ main { display: flex; padding: 80px 50px; align-items: center; justify-content: 
 .stat-item h2 { font-size: 32px; color: #ffffff; }
 .stat-item p { color: #aaaaaa; font-size: 14px; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px;}
 
-/* ẢNH LOGO */
 .hero-image { flex: 1; display: flex; justify-content: center; width: 100%; animation: slideUp 1s ease-in-out;}
 .mirror-container { width: 100%; max-width: 420px; aspect-ratio: 1 / 1; border-radius: 20px; overflow: hidden; background: #fff; display: flex; justify-content: center; align-items: center; padding: 15px; box-shadow: 0 0 50px rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.1);}
 .mirror-container img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px;}
 
-/* TRANG ABOUT & SERVICES */
 .about-box { max-width: 800px; margin: 0 auto; padding: 50px; border-radius: 20px; width: 100%; }
 .about-header { text-align: center; margin-bottom: 40px; }
 .about-title { font-size: 34px; margin-bottom: 15px; }
@@ -64,7 +57,6 @@ main { display: flex; padding: 80px 50px; align-items: center; justify-content: 
 .service-card h2 { color: white; margin-bottom: 15px; font-size: 26px; }
 .service-card p { color: #aaaaaa; margin-bottom: 30px; line-height: 1.6; font-size: 15px; flex-grow: 1; }
 
-/* MODAL */
 .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); justify-content: center; align-items: center;}
 .modal-content { padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; position: relative; animation: slideDown 0.3s ease-out;}
 .modal-content input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.5); color: white; font-size: 16px; transition: 0.3s;}
@@ -72,14 +64,10 @@ main { display: flex; padding: 80px 50px; align-items: center; justify-content: 
 .close { color: #888; position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; transition: 0.3s;}
 .close:hover { color: #ffcc00; }
 
-/* ANIMATIONS */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
 
-/* =========================================
-   GIAO DIỆN ĐIỆN THOẠI (DƯỚI 768px)
-   ========================================= */
 @media screen and (max-width: 768px) {
     header { padding: 15px 20px; }
     .logo { font-size: 22px; }
@@ -90,8 +78,6 @@ main { display: flex; padding: 80px 50px; align-items: center; justify-content: 
         background: rgba(15, 15, 15, 0.95); backdrop-filter: blur(20px);
         flex-direction: column; padding: 30px 20px; gap: 25px;
         border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        
-        /* Hiệu ứng trượt menu mượt mà */
         visibility: hidden; opacity: 0; transform: translateY(-10px); transition: all 0.3s ease;
     }
     .header-right.show { visibility: visible; opacity: 1; transform: translateY(0); }

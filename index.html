@@ -50,7 +50,7 @@
 
         <div class="hero-image">
             <div class="mirror-container">
-                <img src="logo.jpg" alt="P&B Thunder Logo" onerror="this.src='https://via.placeholder.com/400x400/1a1a1a/ffcc00?text=P%26B+Thunder'">
+                <img src="logo.jpg" alt="P&B Thunder Logo">
             </div>
         </div>
     </main>
@@ -96,14 +96,14 @@
                 <div class="service-icon">⛏️</div>
                 <h2>Dịch Vụ Minecraft</h2>
                 <p>Cung cấp plugin, script, setup server chuẩn xác và các giải pháp tối ưu hệ thống dành riêng cho server Minecraft của bạn.</p>
-                <button class="cta-btn" onclick="handleServiceClick('Minecraft')">Xem chi tiết</button>
+                <button class="cta-btn" onclick="handleServiceClick('Dịch Vụ Minecraft')">Xem chi tiết</button>
             </div>
 
             <div class="service-card glass-panel">
                 <div class="service-icon">⚔️</div>
                 <h2>Dịch Vụ Cày Thuê</h2>
                 <p>Cày thuê rank, leo thách đấu uy tín, nhanh chóng. Đảm bảo bảo mật tài khoản tuyệt đối trong suốt quá trình xử lý.</p>
-                <button class="cta-btn" onclick="handleServiceClick('Cày Thuê')">Xem chi tiết</button>
+                <button class="cta-btn" onclick="handleServiceClick('Dịch Vụ Cày Thuê')">Xem chi tiết</button>
             </div>
         </div>
     </main>
@@ -126,6 +126,14 @@
         </div>
     </div>
 
+    <div id="pbAlertModal" class="modal" style="z-index: 99999;">
+        <div class="modal-content glass-panel" style="max-width: 320px; text-align: center; padding: 30px; border-color: #ffcc00; box-shadow: 0 0 30px rgba(255, 204, 0, 0.2);">
+            <h2 id="pbAlertTitle" style="color: #ffcc00; margin-bottom: 15px; font-size: 22px;">⚡ P&B Thunder</h2>
+            <p id="pbAlertMessage" style="color: #dddddd; margin-bottom: 25px; line-height: 1.6; font-size: 15.5px;"></p>
+            <button id="pbAlertBtn" class="cta-btn glow-btn" onclick="closePbAlert()" style="width: 100%;">Đã Hiểu</button>
+        </div>
+    </div>
+
     <script type="module" src="script.js"></script>
     <script>
         function toggleMenu() { document.getElementById('headerRight').classList.toggle('show'); }
@@ -142,12 +150,13 @@
             if(event && event.target.tagName === 'A') {
                 event.target.classList.add('active');
             }
-            
             document.getElementById('headerRight').classList.remove('show');
         }
 
+        // Đóng mở các loại form
         function openModal() { document.getElementById("authModal").style.display = "flex"; }
         function closeModal() { document.getElementById("authModal").style.display = "none"; }
+        function closePbAlert() { document.getElementById("pbAlertModal").style.display = "none"; }
     </script>
 </body>
 </html>
