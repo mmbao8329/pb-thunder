@@ -1,9 +1,14 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 body { background-color: #121212; color: #ffffff; min-height: 100vh; overflow-x: hidden; }
 
-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; border-bottom: 1px solid #333; }
+header { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; border-bottom: 1px solid #333; position: relative;}
 .logo { font-size: 24px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
-.search-bar { display: flex; background-color: #2a2a2a; border-radius: 20px; padding: 8px 15px; width: 300px; }
+
+/* Nút 3 gạch ẩn trên máy tính */
+.mobile-toggle { display: none; background: transparent; color: white; border: none; font-size: 30px; cursor: pointer; }
+
+.header-right { display: flex; align-items: center; gap: 30px; }
+.search-bar { display: flex; background-color: #2a2a2a; border-radius: 20px; padding: 8px 15px; width: 250px; }
 .search-bar input { background: transparent; border: none; color: white; outline: none; width: 100%; font-size: 14px;}
 .search-bar button { background: transparent; border: none; color: white; cursor: pointer; }
 nav a { color: #aaaaaa; text-decoration: none; margin: 0 15px; font-size: 16px; transition: 0.3s; }
@@ -24,28 +29,58 @@ main { display: flex; padding: 80px 50px; align-items: center; justify-content: 
 .cta-btn:hover { background-color: #dddddd; }
 
 .hero-image { flex: 1; display: flex; justify-content: center; width: 100%; }
-.mirror-container { width: 100%; max-width: 400px; aspect-ratio: 1 / 1; border-radius: 15px; overflow: hidden; box-shadow: 0 0 40px rgba(255, 255, 255, 0.4); border: 2px solid #333; background: white;}
+
+/* Khung ảnh đã gỡ filter đen trắng */
+.mirror-container { width: 100%; max-width: 400px; aspect-ratio: 1 / 1; border-radius: 15px; overflow: hidden; box-shadow: 0 0 40px rgba(255, 255, 255, 0.2); background: white; margin: 0 auto; display: flex; justify-content: center; align-items: center; padding: 10px;}
 .mirror-container img { width: 100%; height: 100%; object-fit: contain; }
 
 .about-box { max-width: 800px; margin: 0 auto; background: #1a1a1a; padding: 40px; border-radius: 15px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 
+/* Modal */
 .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); }
 .modal-content { background-color: #1a1a1a; margin: 15% auto; padding: 30px; border: 1px solid #333; border-radius: 10px; width: 90%; max-width: 350px; }
 .modal-content input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #444; background: #222; color: white; font-size: 16px;}
 .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
 .close:hover { color: white; }
 
-/* TỐI ƯU GIAO DIỆN DI ĐỘNG (MOBILE RESPONSIVE) */
+/* =========================================
+   GIAO DIỆN ĐIỆN THOẠI (DƯỚI 768px)
+   ========================================= */
 @media screen and (max-width: 768px) {
-    header { flex-direction: column; gap: 15px; padding: 15px; }
-    .search-bar { width: 100%; }
-    nav { width: 100%; display: flex; justify-content: center; gap: 10px; }
-    nav a { margin: 0 10px; }
+    header { padding: 15px 20px; }
+    
+    /* Hiện nút 3 gạch */
+    .mobile-toggle { display: block; z-index: 101; }
+    
+    /* Cấu hình menu xổ xuống */
+    .header-right { 
+        display: none; /* Ẩn mặc định */
+        flex-direction: column; 
+        position: absolute; 
+        top: 100%; 
+        left: 0; 
+        width: 100%; 
+        background-color: #1a1a1a; 
+        padding: 20px; 
+        box-shadow: 0 10px 20px rgba(0,0,0,0.8); 
+        z-index: 100;
+        border-top: 1px solid #333;
+    }
+    
+    /* Class .show sẽ được thêm vào bằng Javascript khi bấm nút 3 gạch */
+    .header-right.show { display: flex; }
+
+    .search-bar { width: 100%; margin-bottom: 15px; }
+    nav { display: flex; flex-direction: column; text-align: center; width: 100%; gap: 15px; margin-bottom: 20px;}
+    nav a { margin: 0; }
+    .auth-buttons { width: 100%; display: flex; flex-direction: column; gap: 10px; align-items: center;}
+    .login-btn { width: 100%; }
+    
     main { flex-direction: column; padding: 40px 20px; text-align: center; gap: 30px;}
     .hero-content h1 { font-size: 38px; }
     .hero-content p { font-size: 16px; }
     .stats { justify-content: center; }
-    .hero-image { order: -1; } /* Đưa ảnh lên trên cùng ở mobile */
+    .hero-image { order: -1; } /* Ảnh đẩy lên trên cùng */
     .about-box { padding: 20px; }
 }
 

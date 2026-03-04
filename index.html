@@ -11,18 +11,23 @@
         <div class="logo">
             <span class="icon">⚡</span> P&B Thunder
         </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Tìm kiếm...">
-            <button>🔍</button>
-        </div>
-        <nav>
-            <a href="#" class="active" onclick="showSection('home')">Trang chủ</a>
-            <a href="#" onclick="showSection('about')">Giới thiệu</a>
-        </nav>
-        <div class="auth-buttons">
-            <button id="loginBtnTrigger" class="login-btn" onclick="openModal()">👤 Đăng nhập</button>
-            <span id="userGreeting" style="display: none; color: #ffcc00; font-weight: bold; margin-right: 15px;"></span>
-            <button id="logoutBtn" style="display: none;" class="login-btn">Đăng xuất</button>
+        
+        <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
+
+        <div class="header-right" id="headerRight">
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm...">
+                <button>🔍</button>
+            </div>
+            <nav>
+                <a href="#" class="active" onclick="showSection('home')">Trang chủ</a>
+                <a href="#" onclick="showSection('about')">Giới thiệu</a>
+            </nav>
+            <div class="auth-buttons">
+                <button id="loginBtnTrigger" class="login-btn" onclick="openModal()">👤 Đăng nhập</button>
+                <span id="userGreeting" style="display: none; color: #ffcc00; font-weight: bold; margin-right: 15px;"></span>
+                <button id="logoutBtn" style="display: none;" class="login-btn">Đăng xuất</button>
+            </div>
         </div>
     </header>
 
@@ -46,7 +51,7 @@
 
         <div class="hero-image">
             <div class="mirror-container">
-                <img src="pb-logo.jpg" alt="P&B Thunder Logo">
+                <img src="logo.jpg" alt="P&B Thunder Logo">
             </div>
         </div>
     </main>
@@ -129,13 +134,24 @@
 
     <script type="module" src="script.js"></script>
     <script>
+        // Mở/Đóng menu trên mobile
+        function toggleMenu() {
+            document.getElementById('headerRight').classList.toggle('show');
+        }
+
+        // Chuyển tab và tự động đóng menu mobile
         function showSection(sectionId) {
             document.getElementById('home-section').style.display = 'none';
             document.getElementById('about-section').style.display = 'none';
             document.getElementById(sectionId + '-section').style.display = 'flex';
+            
             document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
             event.target.classList.add('active');
+            
+            // Tự đóng menu sau khi bấm chọn
+            document.getElementById('headerRight').classList.remove('show');
         }
+
         function openModal() { document.getElementById("authModal").style.display = "block"; }
         function closeModal() { document.getElementById("authModal").style.display = "none"; }
     </script>
