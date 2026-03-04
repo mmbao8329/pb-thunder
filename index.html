@@ -8,33 +8,31 @@
 </head>
 <body>
     <header>
-        <div class="logo" onclick="showSection('home')" style="cursor: pointer;">
+        <div class="logo" onclick="showSection('home')">
             <span class="icon">⚡</span> P&B Thunder
         </div>
         
         <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
 
         <div class="header-right" id="headerRight">
-            <div class="search-bar">
-                <input type="text" placeholder="Tìm kiếm...">
-                <button>🔍</button>
-            </div>
             <nav>
                 <a href="#" class="active" onclick="showSection('home')">Trang chủ</a>
                 <a href="#" onclick="showSection('about')">Giới thiệu</a>
                 <a href="#" onclick="showSection('services')">Dịch vụ</a>
             </nav>
             <div class="auth-buttons">
-                <button id="loginBtnTrigger" class="login-btn" onclick="openModal()">👤 Đăng nhập</button>
-                <span id="userGreeting" style="display: none; color: #ffcc00; font-weight: bold; margin-right: 15px;"></span>
-                <button id="logoutBtn" style="display: none;" class="login-btn">Đăng xuất</button>
+                <button id="loginBtnTrigger" class="login-btn glow-btn" onclick="openModal()">👤 Đăng nhập</button>
+                <div id="userProfile" style="display: none; align-items: center; gap: 15px;">
+                    <span id="userGreeting" class="user-greeting"></span>
+                    <button id="logoutBtn" class="login-btn outline-btn">Đăng xuất</button>
+                </div>
             </div>
         </div>
     </header>
 
     <main id="home-section">
         <div class="hero-content">
-            <h1>P&B Thunder</h1>
+            <h1 class="gradient-text">P&B Thunder</h1>
             <p>Sức mạnh sấm sét. Khám phá những bộ sưu tập độc quyền và trải nghiệm tốc độ vượt trội cùng hệ thống bảo mật tuyệt đối của chúng tôi.</p>
             
             <div class="stats">
@@ -47,76 +45,38 @@
                     <p>Hoạt động</p>
                 </div>
             </div>
-            <button class="cta-btn" onclick="showSection('services')">Khám phá ngay</button>
+            <button class="cta-btn glow-btn" onclick="showSection('services')">Khám phá ngay</button>
         </div>
 
         <div class="hero-image">
             <div class="mirror-container">
-                <img src="logo.jpg" alt="P&B Thunder Logo">
+                <img src="logo.jpg" alt="P&B Thunder Logo" onerror="this.src='https://via.placeholder.com/400x400/1a1a1a/ffcc00?text=P%26B+Thunder'">
             </div>
         </div>
     </main>
 
     <main id="about-section" style="display: none; padding-top: 40px; padding-bottom: 80px;">
-        <div class="hero-content about-box">
+        <div class="hero-content about-box glass-panel">
             <div class="about-header">
-                <h1 class="about-title">🔥✨ COLLAB PHONG x BẢO ✨🔥</h1>
+                <h1 class="about-title gradient-text">🔥✨ COLLAB PHONG x BẢO ✨🔥</h1>
                 <h2 class="about-subtitle">ĐẰNG SAU ÁNH ĐÈN LÀ CẢ MỘT HÀNH TRÌNH DÀI CỦA SỰ NỖ LỰC</h2>
             </div>
             <div class="about-content">
                 <p>Người ta chỉ thấy vài phút xuất hiện trước ống kính 📸<br>
                 Chỉ thấy những khung hình đẹp 🎬<br>
                 Chỉ thấy thành phẩm hoàn chỉnh 🎯</p>
-                
                 <p class="highlight">Nhưng phía sau tất cả là cả một quá trình dài đầy cố gắng, áp lực và không ngừng hoàn thiện bản thân 💪</p>
-                
                 <p>Có những ngày bắt đầu với rất nhiều năng lượng ☀️<br>
                 Và kết thúc khi đồng hồ đã điểm khuya 🌙<br>
                 Có những hôm tưởng như ý tưởng đã ổn rồi… nhưng vẫn quyết định làm lại từ đầu 🔁<br>
                 Không phải vì bắt buộc — mà vì muốn mọi thứ phải thật sự tốt, thật sự xứng đáng ❤️‍🔥</p>
-                
-                <p class="quote-box">
-                💭 Có lúc bí ý tưởng.<br>
-                😮‍💨 Có lúc mệt mỏi.<br>
-                🤯 Có lúc áp lực vô hình đè nặng.
-                </p>
-                
-                <p>Nhưng thay vì bỏ cuộc ❌<br>
-                Cả hai chọn cách ngồi lại với nhau 🤝<br>
-                Chỉnh từng chi tiết nhỏ ✍️<br>
-                Xem đi xem lại từng khung hình 🎞️<br>
-                Tập đi tập lại đến khi mọi thứ thật sự trọn vẹn 🔥</p>
-                
-                <p>Sự nỗ lực không phải lúc nào cũng ồn ào 📢<br>
-                Nó nằm trong:<br>
-                ⏳ Hàng giờ chuẩn bị thầm lặng<br>
-                📝 Những bản kế hoạch chỉnh sửa chi chít<br>
-                🎧 Những lần nghe lại, xem lại không biết bao nhiêu lần<br>
-                🔄 Những quyết định làm lại dù đã rất mệt</p>
-                
-                <p class="italic-text">
-                ✨ Nỗ lực để mỗi sản phẩm đều có giá trị.<br>
-                ✨ Nỗ lực để không phụ lòng những người luôn ủng hộ.<br>
-                ✨ Nỗ lực để hôm nay tốt hơn hôm qua một chút.
-                </p>
-                
-                <p>Có thể mọi người chỉ thấy sự “cháy” trong vài phút ngắn ngủi 🔥🚀<br>
-                Nhưng phía sau đó là mồ hôi 💦<br>
-                Là thời gian ⏰<br>
-                Là sự kiên trì không cho phép bản thân dừng lại 🧠</p>
-                
-                <p>Không có thành công nào đến từ may mắn đơn thuần 🍀<br>
-                Chỉ có sự nghiêm túc với công việc 📌<br>
-                Sự tôn trọng từng sản phẩm mình làm ra 🎨<br>
-                Và tinh thần không bỏ cuộc dù khó khăn đến đâu 🧗‍♂️</p>
-                
-                <p style="margin-bottom: 25px;">Collab lần này không chỉ là một dự án 🎬<br>
-                Mà là minh chứng cho việc:<br>
-                Khi đủ quyết tâm ❤️‍🔥<br>
-                Đủ tin tưởng 🤝<br>
-                Đủ kiên trì 💯<br>
-                Thì mọi giới hạn đều có thể vượt qua 🚀✨</p>
-                
+                <p class="quote-box">💭 Có lúc bí ý tưởng.<br>😮‍💨 Có lúc mệt mỏi.<br>🤯 Có lúc áp lực vô hình đè nặng.</p>
+                <p>Nhưng thay vì bỏ cuộc ❌<br>Cả hai chọn cách ngồi lại với nhau 🤝<br>Chỉnh từng chi tiết nhỏ ✍️<br>Xem đi xem lại từng khung hình 🎞️<br>Tập đi tập lại đến khi mọi thứ thật sự trọn vẹn 🔥</p>
+                <p>Sự nỗ lực không phải lúc nào cũng ồn ào 📢<br>Nó nằm trong:<br>⏳ Hàng giờ chuẩn bị thầm lặng<br>📝 Những bản kế hoạch chỉnh sửa chi chít<br>🎧 Những lần nghe lại, xem lại không biết bao nhiêu lần<br>🔄 Những quyết định làm lại dù đã rất mệt</p>
+                <p class="italic-text">✨ Nỗ lực để mỗi sản phẩm đều có giá trị.<br>✨ Nỗ lực để không phụ lòng những người luôn ủng hộ.<br>✨ Nỗ lực để hôm nay tốt hơn hôm qua một chút.</p>
+                <p>Có thể mọi người chỉ thấy sự “cháy” trong vài phút ngắn ngủi 🔥🚀<br>Nhưng phía sau đó là mồ hôi 💦<br>Là thời gian ⏰<br>Là sự kiên trì không cho phép bản thân dừng lại 🧠</p>
+                <p>Không có thành công nào đến từ may mắn đơn thuần 🍀<br>Chỉ có sự nghiêm túc với công việc 📌<br>Sự tôn trọng từng sản phẩm mình làm ra 🎨<br>Và tinh thần không bỏ cuộc dù khó khăn đến đâu 🧗‍♂️</p>
+                <p style="margin-bottom: 25px;">Collab lần này không chỉ là một dự án 🎬<br>Mà là minh chứng cho việc:<br>Khi đủ quyết tâm ❤️‍🔥<br>Đủ tin tưởng 🤝<br>Đủ kiên trì 💯<br>Thì mọi giới hạn đều có thể vượt qua 🚀✨</p>
                 <div class="about-footer">
                     <p class="footer-title">Cảm ơn tất cả những ai đã luôn theo dõi và ủng hộ 💖</p>
                     <p class="footer-desc">Chính sự động viên của mọi người là động lực lớn nhất để tiếp tục cố gắng nhiều hơn nữa trong những chặng đường sắp tới 🌟</p>
@@ -126,42 +86,42 @@
     </main>
 
     <main id="services-section" style="display: none; padding-top: 40px; padding-bottom: 80px; flex-direction: column; width: 100%;">
-        <div style="text-align: center; margin-bottom: 40px;">
-            <h1 style="color: #ffcc00; font-size: 38px;">Dịch Vụ Của Chúng Tôi</h1>
-            <p style="color: #aaaaaa; margin-top: 10px;">Lựa chọn dịch vụ phù hợp với nhu cầu của bạn</p>
+        <div style="text-align: center; margin-bottom: 50px;">
+            <h1 class="gradient-text" style="font-size: 42px;">Dịch Vụ Nổi Bật</h1>
+            <p style="color: #aaaaaa; margin-top: 10px;">Lựa chọn dịch vụ chuyên nghiệp, tối ưu nhất dành cho bạn</p>
         </div>
         
         <div class="services-container">
-            <div class="service-card">
+            <div class="service-card glass-panel">
                 <div class="service-icon">⛏️</div>
                 <h2>Dịch Vụ Minecraft</h2>
                 <p>Cung cấp plugin, script, setup server chuẩn xác và các giải pháp tối ưu hệ thống dành riêng cho server Minecraft của bạn.</p>
-                <button class="cta-btn" onclick="alert('Vui lòng đăng nhập để liên hệ dịch vụ!')">Xem chi tiết</button>
+                <button class="cta-btn" onclick="handleServiceClick('Minecraft')">Xem chi tiết</button>
             </div>
 
-            <div class="service-card">
+            <div class="service-card glass-panel">
                 <div class="service-icon">⚔️</div>
                 <h2>Dịch Vụ Cày Thuê</h2>
                 <p>Cày thuê rank, leo thách đấu uy tín, nhanh chóng. Đảm bảo bảo mật tài khoản tuyệt đối trong suốt quá trình xử lý.</p>
-                <button class="cta-btn" onclick="alert('Vui lòng đăng nhập để liên hệ dịch vụ!')">Xem chi tiết</button>
+                <button class="cta-btn" onclick="handleServiceClick('Cày Thuê')">Xem chi tiết</button>
             </div>
         </div>
     </main>
 
     <div id="authModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content glass-panel">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2 id="modalTitle">Đăng nhập</h2>
+            <h2 id="modalTitle" style="margin-bottom: 20px; color: #ffcc00;">Đăng nhập</h2>
             <form id="authForm">
                 <div id="displayNameContainer" style="display: none;">
-                    <input type="text" id="displayName" placeholder="Tên hiển thị (VD: Bảo Bảo)">
+                    <input type="text" id="displayName" placeholder="Tên hiển thị (VD: Lôi Thần)">
                 </div>
                 <input type="email" id="email" placeholder="Email của bạn" required>
                 <input type="password" id="password" placeholder="Mật khẩu (từ 6 ký tự)" required>
-                <button type="submit" class="cta-btn" style="width: 100%; margin-top: 15px;">Xác nhận</button>
+                <button type="submit" class="cta-btn glow-btn" style="width: 100%; margin-top: 20px;">Xác nhận</button>
             </form>
-            <p style="margin-top: 15px; text-align: center;">
-                <a href="#" onclick="toggleAuthMode()" id="toggleAuthText" style="color: #ccc;">Chưa có tài khoản? Đăng ký ngay</a>
+            <p style="margin-top: 20px; text-align: center;">
+                <a href="#" onclick="toggleAuthMode()" id="toggleAuthText" style="color: #aaaaaa; text-decoration: none; font-size: 14px; transition: 0.3s;">Chưa có tài khoản? <b>Đăng ký ngay</b></a>
             </p>
         </div>
     </div>
@@ -171,26 +131,22 @@
         function toggleMenu() { document.getElementById('headerRight').classList.toggle('show'); }
 
         function showSection(sectionId) {
-            // Ẩn tất cả
             document.getElementById('home-section').style.display = 'none';
             document.getElementById('about-section').style.display = 'none';
             document.getElementById('services-section').style.display = 'none';
             
-            // Hiện trang được chọn (nếu là trang dịch vụ thì dùng flex-direction: column)
             const section = document.getElementById(sectionId + '-section');
             section.style.display = 'flex';
             
-            // Xử lý active nav
             document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
             if(event && event.target.tagName === 'A') {
                 event.target.classList.add('active');
             }
             
-            // Đóng menu mobile
             document.getElementById('headerRight').classList.remove('show');
         }
 
-        function openModal() { document.getElementById("authModal").style.display = "block"; }
+        function openModal() { document.getElementById("authModal").style.display = "flex"; }
         function closeModal() { document.getElementById("authModal").style.display = "none"; }
     </script>
 </body>

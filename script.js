@@ -15,14 +15,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Xử lý Giao diện Đăng nhập / Đăng ký
+// Biến kiểm tra xem đã đăng nhập chưa
+window.isUserLoggedIn = false;
+
 let isLoginMode = true;
 window.toggleAuthMode = function() {
     isLoginMode = !isLoginMode;
     document.getElementById("modalTitle").innerText = isLoginMode ? "Đăng nhập" : "Đăng ký";
-    document.getElementById("toggleAuthText").innerText = isLoginMode ? "Chưa có tài khoản? Đăng ký ngay" : "Đã có tài khoản? Đăng nhập";
+    document.getElementById("toggleAuthText").innerHTML = isLoginMode ? "Chưa có tài khoản? <b>Đăng ký ngay</b>" : "Đã có tài khoản? <b>Đăng nhập</b>";
     
-    // Ẩn/hiện ô Tên hiển thị
     const nameContainer = document.getElementById("displayNameContainer");
     const nameInput = document.getElementById("displayName");
     if(isLoginMode) {
@@ -34,7 +35,6 @@ window.toggleAuthMode = function() {
     }
 }
 
-// Xử lý Form Submit
 document.getElementById("authForm").addEventListener("submit", (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value;
@@ -42,54 +42,58 @@ document.getElementById("authForm").addEventListener("submit", (e) => {
     const displayName = document.getElementById("displayName").value;
 
     if (!isLoginMode) {
-        // Tạo tài khoản mới
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Cập nhật Tên hiển thị ngay sau khi tạo
-                updateProfile(userCredential.user, {
-                    displayName: displayName
-                }).then(() => {
+                updateProfile(userCredential.user, { displayName: displayName })
+                .then(() => {
                     alert("Đăng ký thành công! Chào mừng " + displayName);
                     document.getElementById("authModal").style.display = "none";
-                    location.reload(); // Tải lại trang để cập nhật tên
+                    location.reload(); 
                 });
             })
-            .catch((error) => {
-                alert("Lỗi đăng ký: " + error.message);
-            });
+            .catch((error) => { alert("Lỗi đăng ký: " + error.message); });
     } else {
-        // Đăng nhập
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 alert("Đăng nhập thành công!");
                 document.getElementById("authModal").style.display = "none";
             })
-            .catch((error) => {
-                alert("Sai email hoặc mật khẩu!");
-            });
+            .catch((error) => { alert("Sai email hoặc mật khẩu!"); });
     }
 });
 
-// Đăng xuất
 document.getElementById("logoutBtn").addEventListener("click", () => {
-    signOut(auth).then(() => { alert("Đã đăng xuất!"); });
+    signOut(auth).then(() => { 
+        alert("Đã đăng xuất!"); 
+        window.isUserLoggedIn = false;
+    });
 });
 
-// Theo dõi người dùng
+// THEO DÕI TRẠNG THÁI NGƯỜI DÙNG & CẬP NHẬT BIẾN GLOBAL
 onAuthStateChanged(auth, (user) => {
     if (user) {
+        window.isUserLoggedIn = true;
         document.getElementById('loginBtnTrigger').style.display = 'none';
-        document.getElementById('userGreeting').style.display = 'inline';
+        document.getElementById('userProfile').style.display = 'flex';
         
-        // Ưu tiên hiển thị Tên thay vì Email
         const showName = user.displayName ? user.displayName : user.email;
         document.getElementById('userGreeting').innerText = "Chào, " + showName;
-        
-        document.getElementById('logoutBtn').style.display = 'inline';
     } else {
-        document.getElementById('loginBtnTrigger').style.display = 'inline';
-        document.getElementById('userGreeting').style.display = 'none';
-        document.getElementById('logoutBtn').style.display = 'none';
+        window.isUserLoggedIn = false;
+        document.getElementById('loginBtnTrigger').style.display = 'block';
+        document.getElementById('userProfile').style.display = 'none';
     }
 });
+
+// XỬ LÝ NÚT XEM CHI TIẾT DỊCH VỤ
+window.handleServiceClick = function(serviceName) {
+    if (window.isUserLoggedIn) {
+        // Nếu đã đăng nhập thì báo thông tin liên hệ
+        alert(`Bạn đang chọn ${serviceName}. \nHãy liên hệ Admin qua Zalo/Facebook: 0987.xxx.xxx để trao đổi chi tiết nhé!`);
+    } else {
+        // Nếu chưa thì bật form đăng nhập lên
+        alert("Vui lòng đăng nhập để xem chi tiết và liên hệ dịch vụ!");
+        document.getElementById("authModal").style.display = "flex";
+    }
+}
 
