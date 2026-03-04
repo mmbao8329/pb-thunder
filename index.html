@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P&B Thunder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span class="icon">⚡</span> P&B Thunder
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Tìm kiếm...">
+            <button>🔍</button>
+        </div>
+        <nav>
+            <a href="#" class="active" onclick="showSection('home')">Trang chủ</a>
+            <a href="#" onclick="showSection('about')">Giới thiệu</a>
+        </nav>
+        <div class="auth-buttons">
+            <button id="loginBtnTrigger" class="login-btn" onclick="openModal()">👤 Đăng nhập</button>
+            <span id="userGreeting" style="display: none; color: white; margin-right: 15px;"></span>
+            <button id="logoutBtn" style="display: none;" class="login-btn">Đăng xuất</button>
+        </div>
+    </header>
+
+    <main id="home-section">
+        <div class="hero-content">
+            <h1>P&B Thunder</h1>
+            <p>Sức mạnh sấm sét. Khám phá những bộ sưu tập độc quyền và trải nghiệm tốc độ vượt trội cùng hệ thống bảo mật tuyệt đối của chúng tôi.</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <h2>99%</h2>
+                    <p>Bảo mật</p>
+                </div>
+                <div class="stat-item">
+                    <h2>24/7</h2>
+                    <p>Hoạt động</p>
+                </div>
+            </div>
+            <button class="cta-btn">Khám phá ngay</button>
+        </div>
+
+        <div class="hero-image">
+            <div class="mirror-container">
+                <img src="https://i.pinimg.com/736x/89/3e/60/893e6012ccbcfc4cfc62734105ddfcbc.jpg" alt="P&B Thunder">
+            </div>
+        </div>
+    </main>
+
+    <main id="about-section" style="display: none;">
+        <div class="hero-content" style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h1>Về P&B Thunder</h1>
+            <p>Hệ thống đang được bảo mật bởi cơ sở dữ liệu Google Firebase. Thông tin người dùng được mã hóa an toàn theo tiêu chuẩn quốc tế.</p>
+        </div>
+    </main>
+
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Đăng nhập</h2>
+            <form id="authForm">
+                <input type="email" id="email" placeholder="Email của bạn" required>
+                <input type="password" id="password" placeholder="Mật khẩu (từ 6 ký tự)" required>
+                <button type="submit" class="cta-btn" style="width: 100%; margin-top: 15px;">Xác nhận</button>
+            </form>
+            <p style="margin-top: 15px; text-align: center;">
+                <a href="#" onclick="toggleAuthMode()" id="toggleAuthText" style="color: #ccc;">Chưa có tài khoản? Đăng ký ngay</a>
+            </p>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        // Các hàm giao diện cơ bản
+        function showSection(sectionId) {
+            document.getElementById('home-section').style.display = 'none';
+            document.getElementById('about-section').style.display = 'none';
+            document.getElementById(sectionId + '-section').style.display = 'flex';
+            
+            // Cập nhật css cho tab active
+            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        function openModal() { document.getElementById("authModal").style.display = "block"; }
+        function closeModal() { document.getElementById("authModal").style.display = "none"; }
+    </script>
+</body>
+</html>
+	

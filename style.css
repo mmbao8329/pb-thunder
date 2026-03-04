@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+    background-color: #121212;
+    color: #ffffff;
+    min-height: 100vh;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    border-bottom: 1px solid #333;
+}
+.logo { font-size: 24px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+.search-bar { display: flex; background-color: #2a2a2a; border-radius: 20px; padding: 5px 15px; width: 300px; }
+.search-bar input { background: transparent; border: none; color: white; outline: none; width: 100%; }
+.search-bar button { background: transparent; border: none; color: white; cursor: pointer; }
+nav a { color: #aaaaaa; text-decoration: none; margin: 0 15px; font-size: 16px; transition: 0.3s; }
+nav a:hover, nav a.active { color: #ffffff; border-bottom: 2px solid white; padding-bottom: 5px; }
+.login-btn { background-color: white; color: black; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+.login-btn:hover { background-color: #dddddd; }
+main { display: flex; padding: 80px 50px; align-items: center; justify-content: space-between; gap: 50px; }
+.hero-content { flex: 1; max-width: 600px; }
+.hero-content h1 { font-size: 50px; margin-bottom: 20px; }
+.hero-content p { color: #aaaaaa; line-height: 1.6; margin-bottom: 40px; font-size: 18px; }
+.stats { display: flex; gap: 40px; margin-bottom: 40px; }
+.stat-item h2 { font-size: 30px; }
+.stat-item p { color: #aaaaaa; font-size: 14px; margin-top: 5px; }
+.cta-btn { background-color: white; color: black; border: none; padding: 15px 30px; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+.cta-btn:hover { background-color: #dddddd; }
+.hero-image { flex: 1; display: flex; justify-content: center; }
+.mirror-container { width: 350px; height: 500px; border-radius: 15px; overflow: hidden; box-shadow: 0 0 40px rgba(255, 255, 255, 0.4); border: 2px solid #333; }
+.mirror-container img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.2); }
+/* Modal */
+.modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); }
+.modal-content { background-color: #1a1a1a; margin: 15% auto; padding: 30px; border: 1px solid #333; border-radius: 10px; width: 350px; }
+.modal-content input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #444; background: #222; color: white; }
+.close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+.close:hover { color: white; }
+
