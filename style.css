@@ -2,9 +2,9 @@
 body { background-color: #121212; color: #ffffff; min-height: 100vh; overflow-x: hidden; }
 
 header { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; border-bottom: 1px solid #333; position: relative;}
-.logo { font-size: 24px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+.logo { font-size: 24px; font-weight: bold; display: flex; align-items: center; gap: 10px; transition: 0.3s;}
+.logo:hover { color: #ffcc00; }
 
-/* Nút 3 gạch ẩn trên máy tính */
 .mobile-toggle { display: none; background: transparent; color: white; border: none; font-size: 30px; cursor: pointer; }
 
 .header-right { display: flex; align-items: center; gap: 30px; }
@@ -26,15 +26,33 @@ main { display: flex; padding: 80px 50px; align-items: center; justify-content: 
 .stat-item p { color: #aaaaaa; font-size: 14px; margin-top: 5px; }
 
 .cta-btn { background-color: white; color: black; border: none; padding: 15px 30px; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-.cta-btn:hover { background-color: #dddddd; }
+.cta-btn:hover { background-color: #ffcc00; color: black;}
 
 .hero-image { flex: 1; display: flex; justify-content: center; width: 100%; }
-
-/* Khung ảnh đã gỡ filter đen trắng */
 .mirror-container { width: 100%; max-width: 400px; aspect-ratio: 1 / 1; border-radius: 15px; overflow: hidden; box-shadow: 0 0 40px rgba(255, 255, 255, 0.2); background: white; margin: 0 auto; display: flex; justify-content: center; align-items: center; padding: 10px;}
 .mirror-container img { width: 100%; height: 100%; object-fit: contain; }
 
-.about-box { max-width: 800px; margin: 0 auto; background: #1a1a1a; padding: 40px; border-radius: 15px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+/* CSS TRANG GIỚI THIỆU (ABOUT) */
+.about-box { max-width: 800px; margin: 0 auto; background: #1a1a1a; padding: 40px; border-radius: 15px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%; }
+.about-header { text-align: center; margin-bottom: 30px; }
+.about-title { color: #ffcc00; font-size: 32px; margin-bottom: 10px; }
+.about-subtitle { font-size: 18px; color: #ffffff; letter-spacing: 1px; }
+.about-content { text-align: left; color: #cccccc; font-size: 16px; line-height: 1.8; }
+.about-content p { margin-bottom: 15px; }
+.highlight { color: #ffffff; font-weight: bold; }
+.quote-box { padding-left: 20px; border-left: 3px solid #555; font-style: italic; }
+.italic-text { font-style: italic; color: #e0e0e0; }
+.about-footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; }
+.footer-title { font-weight: bold; color: #ffffff; font-size: 18px; margin-bottom: 10px; }
+.footer-desc { font-size: 15px; }
+
+/* CSS TRANG DỊCH VỤ */
+.services-container { display: flex; gap: 30px; width: 100%; max-width: 1000px; margin: 0 auto; justify-content: center; }
+.service-card { background: #1a1a1a; border: 1px solid #333; border-radius: 15px; padding: 40px 30px; flex: 1; text-align: center; transition: 0.3s; display: flex; flex-direction: column; align-items: center; }
+.service-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(255,204,0,0.1); border-color: #ffcc00; }
+.service-icon { font-size: 50px; margin-bottom: 20px; }
+.service-card h2 { color: white; margin-bottom: 15px; font-size: 24px; }
+.service-card p { color: #aaaaaa; margin-bottom: 25px; line-height: 1.6; font-size: 15px; flex-grow: 1; }
 
 /* Modal */
 .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); }
@@ -48,13 +66,10 @@ main { display: flex; padding: 80px 50px; align-items: center; justify-content: 
    ========================================= */
 @media screen and (max-width: 768px) {
     header { padding: 15px 20px; }
-    
-    /* Hiện nút 3 gạch */
     .mobile-toggle { display: block; z-index: 101; }
     
-    /* Cấu hình menu xổ xuống */
     .header-right { 
-        display: none; /* Ẩn mặc định */
+        display: none; 
         flex-direction: column; 
         position: absolute; 
         top: 100%; 
@@ -66,8 +81,6 @@ main { display: flex; padding: 80px 50px; align-items: center; justify-content: 
         z-index: 100;
         border-top: 1px solid #333;
     }
-    
-    /* Class .show sẽ được thêm vào bằng Javascript khi bấm nút 3 gạch */
     .header-right.show { display: flex; }
 
     .search-bar { width: 100%; margin-bottom: 15px; }
@@ -80,7 +93,16 @@ main { display: flex; padding: 80px 50px; align-items: center; justify-content: 
     .hero-content h1 { font-size: 38px; }
     .hero-content p { font-size: 16px; }
     .stats { justify-content: center; }
-    .hero-image { order: -1; } /* Ảnh đẩy lên trên cùng */
-    .about-box { padding: 20px; }
+    .hero-image { order: -1; } 
+    
+    /* Responsive cho About Box */
+    .about-box { padding: 25px 15px; }
+    .about-title { font-size: 22px; }
+    .about-subtitle { font-size: 15px; line-height: 1.4; }
+    .about-content { font-size: 14.5px; }
+    
+    /* Responsive cho Services */
+    .services-container { flex-direction: column; }
+    #services-section h1 { font-size: 28px !important; }
 }
 
