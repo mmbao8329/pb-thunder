@@ -29,7 +29,7 @@
                 <a href="contact.html">Liên hệ</a>
             </nav>
             <div class="auth-buttons">
-                <button id="loginBtnTrigger" class="login-btn glow-btn" onclick="document.getElementById('authModal').style.display='flex'">Đăng nhập</button>
+                <button id="loginBtnTrigger" class="login-btn glow-btn" onclick="document.getElementById('authModal').style.display='flex'">👤 Đăng nhập</button>
                 <div id="userProfile" style="display: none; align-items: center; gap: 15px;">
                     <span id="userGreeting" class="user-greeting"></span>
                     <button id="logoutBtn" class="login-btn outline-btn">Đăng xuất</button>
@@ -74,7 +74,7 @@
 
             <div class="wallet-box">
                 <p style="color: #00ffcc; font-size: 16px; margin-bottom: 10px; font-weight: bold;">⚡ VÍ P&B THUNDER</p>
-                <h2 style="font-size: 36px; color: white; margin-bottom: 20px;">0 <span style="font-size: 20px; color: #aaa;">VNĐ</span></h2>
+                <h2 style="font-size: 36px; color: white; margin-bottom: 20px;"><span id="userBalance">0</span> <span style="font-size: 20px; color: #aaa;">VNĐ</span></h2>
                 <button class="cta-btn glow-btn" onclick="showPbAlert('💰 Nạp Tiền Vào Ví', 'Để nạp tiền vào tài khoản, vui lòng chuyển khoản Momo/Mbbank kèm nội dung: <br><br><b>NAP [Mã UID của bạn]</b><br><br>Sau đó liên hệ Admin qua Zalo để được cộng tiền ngay lập tức!')">Thêm Số Dư</button>
             </div>
         </div>
