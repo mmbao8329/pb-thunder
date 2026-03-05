@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dịch Vụ Khác - P&B Thunder</title>
+    <title>Danh mục Dịch Vụ - P&B Thunder</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <div class="logo" onclick="window.location.href='dichvu.html'">
+        <div class="logo" onclick="window.location.href='index.html'">
             <span class="icon">⚡</span> P&B Thunder
         </div>
         <button class="mobile-toggle" onclick="document.getElementById('headerRight').classList.toggle('show')">☰</button>
         <div class="header-right" id="headerRight">
-            <nav><a href="index.html">Trang chủ</a></nav>
+            <nav>
+                <a href="index.html">Trang chủ</a>
+                <a href="index.html">Giới thiệu</a>
+                <a href="dichvu.html" class="active">Dịch vụ</a>
+                <a href="index.html">Liên hệ</a>
+            </nav>
             <div class="auth-buttons">
                 <button id="loginBtnTrigger" class="login-btn glow-btn" onclick="document.getElementById('authModal').style.display='flex'">👤 Đăng nhập</button>
                 <div id="userProfile" style="display: none; align-items: center; gap: 15px;">
@@ -24,26 +29,38 @@
         </div>
     </header>
 
-    <main style="padding: 40px 20px; flex-direction: column; width: 100%; align-items: center;">
+    <main style="padding: 40px 20px; flex-direction: column; width: 100%; align-items: center; display: flex;">
         <div style="width: 100%; max-width: 1000px; margin: 0 auto 20px auto; display: flex; justify-content: flex-start;">
             <button onclick="window.location.href='index.html'" class="login-btn outline-btn" style="display: flex; align-items: center; gap: 8px; padding: 10px 20px;">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Quay lại
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Quay lại Trang chủ
             </button>
         </div>
 
         <div style="text-align: center; margin-bottom: 50px;">
-            <h1 class="gradient-text" style="font-size: 42px;">Các Dịch Vụ Khác</h1>
-            <p style="color: #aaaaaa; margin-top: 10px;">Chúng tôi luôn sẵn sàng hỗ trợ mọi yêu cầu của bạn</p>
+            <h1 class="gradient-text" style="font-size: 42px;">Dịch Vụ Nổi Bật</h1>
+            <p style="color: #aaaaaa; margin-top: 10px;">Lựa chọn dịch vụ chuyên nghiệp, tối ưu nhất dành cho bạn</p>
         </div>
-
+        
         <div class="services-container" style="flex-wrap: wrap; justify-content: center;">
-            <div class="service-card glass-panel" style="max-width: 600px;">
-                <h2 style="color: #ffcc00;">💬 Yêu cầu dịch vụ riêng</h2>
-                <div style="text-align: left; margin-bottom: 20px; color: #aaaaaa; line-height: 1.8;">
-                    <p>Bạn cần mua bán vật phẩm, trao đổi tài khoản, hay thiết kế các dự án game đặc thù khác?</p>
-                    <p>Đừng ngần ngại liên hệ trực tiếp với chúng tôi để được tư vấn lộ trình và báo giá chi tiết nhất nhé!</p>
-                </div>
-                <button class="cta-btn" onclick="handleServiceClick('Dịch vụ theo yêu cầu')">Trò chuyện với Admin</button>
+            <div class="service-card glass-panel" style="min-width: 280px;">
+                <div class="service-icon">⛏️</div>
+                <h2>Dịch Vụ Minecraft</h2>
+                <p>Cung cấp plugin, script, setup server chuẩn xác và các giải pháp tối ưu hệ thống dành riêng cho server Minecraft của bạn.</p>
+                <button class="cta-btn" onclick="window.location.href='minecraft.html'">Xem chi tiết</button>
+            </div>
+            
+            <div class="service-card glass-panel" style="min-width: 280px;">
+                <div class="service-icon">⚔️</div>
+                <h2>Dịch Vụ Cày Thuê</h2>
+                <p>Cày thuê rank, leo thách đấu uy tín, nhanh chóng. Đảm bảo bảo mật tài khoản tuyệt đối trong suốt quá trình xử lý.</p>
+                <button class="cta-btn" onclick="window.location.href='caythue.html'">Xem chi tiết</button>
+            </div>
+            
+            <div class="service-card glass-panel" style="min-width: 280px;">
+                <div class="service-icon">🌟</div>
+                <h2>Dịch Vụ Khác</h2>
+                <p>Khám phá thêm các dịch vụ đa dạng khác từ đội ngũ P&B Thunder để đáp ứng mọi nhu cầu của bạn.</p>
+                <button class="cta-btn" onclick="window.location.href='khac.html'">Xem chi tiết</button>
             </div>
         </div>
     </main>
