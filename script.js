@@ -1,6 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
-// Đã xóa thư viện Storage tốn tiền của Google
 
 const firebaseConfig = {
   apiKey: "AIzaSyDAkQ1ZV2Zh70BTgBtFwvLzLbUd8W6AuCs",
@@ -115,23 +114,43 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-window.updateUserName = function() {
-    const newName = prompt("Nhập Tên hiển thị mới của bạn:");
-    if (newName && newName.trim() !== "") {
-        updateProfile(auth.currentUser, { displayName: newName })
-        .then(() => {
-            showPbAlert("✨ Thành công", "Tên hiển thị đã được cập nhật! Trang sẽ tự tải lại.");
-            setTimeout(() => location.reload(), 1500); 
-        }).catch((error) => { showPbAlert("❌ Lỗi", "Không thể đổi tên: " + error.message); });
-    }
+// THAY THẾ ALERT BẰNG BẢNG COPY XỊN XÒ
+window.copyUid = function() {
+    const uidText = document.getElementById('profileUid').innerText;
+    navigator.clipboard.writeText(uidText);
+    showPbAlert("📋 Copy Thành Công", "Đã lưu mã UID vào bộ nhớ tạm:<br><br><b style='color:#00ffcc; font-family: monospace; font-size: 16px; word-break: break-all;'>" + uidText + "</b>");
 }
 
-// BỘ XỬ LÝ UP ẢNH TỪ THIẾT BỊ QUA MÁY CHỦ IMGBB (MIỄN PHÍ)
+// THAY THẾ PROMPT BẰNG BẢNG NHẬP LIỆU VIP
+window.updateUserName = function() {
+    document.getElementById("pbPromptTitle").innerText = "✏️ Đổi Tên Hiển Thị";
+    document.getElementById("pbPromptMessage").innerText = "Nhập Tên hiển thị mới của bạn:";
+    const inputField = document.getElementById("pbPromptInput");
+    inputField.value = ""; // Xóa chữ cũ
+    inputField.style.borderColor = "#555";
+    document.getElementById("pbPromptModal").style.display = "flex";
+    inputField.focus();
+
+    document.getElementById("pbPromptConfirmBtn").onclick = function() {
+        const newName = inputField.value;
+        if (newName && newName.trim() !== "") {
+            document.getElementById("pbPromptModal").style.display = "none";
+            updateProfile(auth.currentUser, { displayName: newName })
+            .then(() => {
+                showPbAlert("✨ Thành công", "Tên hiển thị đã được cập nhật! Trang sẽ tự tải lại.");
+                setTimeout(() => location.reload(), 1500); 
+            }).catch((error) => { showPbAlert("❌ Lỗi", "Không thể đổi tên: " + error.message); });
+        } else {
+            inputField.style.borderColor = "red"; // Báo đỏ nếu để trống
+        }
+    };
+}
+
+// XỬ LÝ UP ẢNH LÊN IMGBB
 window.handleAvatarUpload = async function(event) {
     const file = event.target.files[0];
     if (!file) return;
 
-    // Giới hạn ảnh 5MB
     if (file.size > 5 * 1024 * 1024) {
         showPbAlert("❌ Lỗi", "Kích thước ảnh quá lớn. Vui lòng chọn ảnh nhẹ hơn 5MB.");
         return;
@@ -149,7 +168,6 @@ window.handleAvatarUpload = async function(event) {
     formData.append("image", file);
 
     try {
-        // Đẩy ảnh qua ImgBB
         const response = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
             method: "POST",
             body: formData
@@ -158,12 +176,8 @@ window.handleAvatarUpload = async function(event) {
         const data = await response.json();
 
         if (data.success) {
-            // Lấy link ảnh trực tiếp từ ImgBB trả về
             const imageUrl = data.data.url;
-
-            // Cập nhật link đó vào Profile Firebase
             await updateProfile(user, { photoURL: imageUrl });
-            
             showPbAlert("✨ Thành công", "Ảnh đại diện đã được cập nhật! Trang sẽ tự động tải lại.");
             setTimeout(() => location.reload(), 1500); 
         } else {

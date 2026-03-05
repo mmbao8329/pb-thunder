@@ -81,15 +81,25 @@
     </main>
 
     <div id="authModal" class="modal"><div class="modal-content glass-panel"><span class="close" onclick="document.getElementById('authModal').style.display='none'">&times;</span><h2 id="modalTitle" style="margin-bottom: 20px; color: #ffcc00;">Đăng nhập</h2><form id="authForm"><div id="displayNameContainer" style="display: none;"><input type="text" id="displayName" placeholder="Tên hiển thị (VD: Lôi Thần)"></div><input type="email" id="email" placeholder="Email của bạn" required><input type="password" id="password" placeholder="Mật khẩu (từ 6 ký tự)" required><button type="submit" class="cta-btn glow-btn" style="width: 100%; margin-top: 20px;">Xác nhận</button></form><p style="margin-top: 20px; text-align: center;"><a href="#" onclick="toggleAuthMode()" id="toggleAuthText" style="color: #aaaaaa; text-decoration: none; font-size: 14px; transition: 0.3s;">Chưa có tài khoản? <b>Đăng ký ngay</b></a></p></div></div>
-    <div id="pbAlertModal" class="modal" style="z-index: 99999;"><div class="modal-content glass-panel" style="max-width: 320px; text-align: center; padding: 30px; border-color: #ffcc00; box-shadow: 0 0 30px rgba(255, 204, 0, 0.2);"><h2 id="pbAlertTitle" style="color: #ffcc00; margin-bottom: 15px; font-size: 22px;">⚡ P&B Thunder</h2><p id="pbAlertMessage" style="color: #dddddd; margin-bottom: 25px; line-height: 1.6; font-size: 15.5px;"></p><button id="pbAlertBtn" class="cta-btn glow-btn" onclick="document.getElementById('pbAlertModal').style.display='none'" style="width: 100%;">Đã Hiểu</button></div></div>
+    
+    <div id="pbAlertModal" class="modal" style="z-index: 99999;"><div class="modal-content glass-panel" style="max-width: 320px; text-align: center; padding: 30px; border-color: #ffcc00; box-shadow: 0 0 30px rgba(255, 204, 0, 0.2);"><h2 id="pbAlertTitle" style="color: #ffcc00; margin-bottom: 15px; font-size: 22px;">⚡ P&B Thunder</h2><p id="pbAlertMessage" style="color: #dddddd; margin-bottom: 25px; line-height: 1.6; font-size: 15.5px;"></p><button id="pbAlertBtn" class="cta-btn glow-btn" onclick="closePbAlert()" style="width: 100%;">Đã Hiểu</button></div></div>
+
+    <div id="pbPromptModal" class="modal" style="z-index: 99999;">
+        <div class="modal-content glass-panel" style="max-width: 320px; text-align: center; padding: 30px; border-color: #ffcc00; box-shadow: 0 0 30px rgba(255, 204, 0, 0.2);">
+            <h2 id="pbPromptTitle" style="color: #ffcc00; margin-bottom: 15px; font-size: 22px;">Nhập thông tin</h2>
+            <p id="pbPromptMessage" style="color: #dddddd; margin-bottom: 15px; font-size: 15px;"></p>
+            <input type="text" id="pbPromptInput" style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #555; background: rgba(0,0,0,0.5); color: white; outline: none; font-size: 16px;" autocomplete="off">
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button class="cta-btn outline-btn" onclick="closePbPrompt()" style="flex: 1; padding: 10px; font-size: 14px;">Hủy</button>
+                <button id="pbPromptConfirmBtn" class="cta-btn glow-btn" style="flex: 1; padding: 10px; font-size: 14px;">Xác nhận</button>
+            </div>
+        </div>
+    </div>
 
     <script type="module" src="script.js"></script>
     <script>
-        window.copyUid = function() {
-            const uidText = document.getElementById('profileUid').innerText;
-            navigator.clipboard.writeText(uidText);
-            alert("Đã copy mã UID: " + uidText);
-        }
+        function closePbAlert() { document.getElementById("pbAlertModal").style.display = "none"; }
+        function closePbPrompt() { document.getElementById("pbPromptModal").style.display = "none"; }
     </script>
 </body>
 </html>
