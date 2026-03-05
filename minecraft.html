@@ -11,7 +11,9 @@
         <div class="logo" onclick="window.location.href='index.html'">
             <span class="icon">⚡</span> P&B Thunder
         </div>
+        
         <button class="mobile-toggle" onclick="document.getElementById('headerRight').classList.toggle('show')">☰</button>
+
         <div class="header-right" id="headerRight">
             <nav>
                 <a href="index.html">Trang chủ</a>
@@ -27,8 +29,9 @@
     </header>
 
     <main style="padding: 40px 20px; flex-direction: column; width: 100%; align-items: center;">
+        
         <div style="width: 100%; max-width: 1000px; margin: 0 auto 20px auto; display: flex; justify-content: flex-start;">
-            <button onclick="window.location.href='index.html'" class="login-btn outline-btn" style="display: flex; align-items: center; gap: 8px;">
+            <button onclick="window.location.href='index.html'" class="login-btn outline-btn" style="display: flex; align-items: center; gap: 8px; padding: 10px 20px;">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Quay lại
             </button>
         </div>
@@ -38,23 +41,56 @@
             <p style="color: #aaaaaa; margin-top: 10px;">Chuyên nghiệp - Tối ưu - Chuẩn xác</p>
         </div>
 
-        <div class="services-container" style="flex-wrap: wrap;">
-            <div class="service-card glass-panel" style="min-width: 300px;">
-                <h2 style="color: #ffcc00;">⚙️ Setup Server</h2>
-                <p>Nhận cài đặt cơ bản, tối ưu hóa hệ thống, cấu hình máy chủ Minecraft từ A-Z giúp server hoạt động mượt mà, không giật lag.</p>
-                <button class="cta-btn" style="margin-top: 15px;" onclick="handleServiceClick('Setup Server Minecraft')">Liên Hệ Báo Giá</button>
+        <div class="services-container" style="flex-wrap: wrap; justify-content: center;">
+            <div class="service-card glass-panel" style="min-width: 280px;">
+                <h2 style="color: #ffcc00;">⚙️ Setup Server Minecraft</h2>
+                <div style="text-align: left; margin-bottom: 20px; color: #aaaaaa; line-height: 1.8;">
+                    <p>• Nhận cài đặt máy chủ cơ bản từ A-Z.</p>
+                    <p>• Cấu hình chuẩn các plugin thiết yếu, chống giật lag.</p>
+                    <p>• Phân quyền, tạo Rank, thiết lập Shop, Economy...</p>
+                    <p>• Đảm bảo server vận hành mượt mà, sẵn sàng đón mem.</p>
+                </div>
+                <button class="cta-btn" onclick="handleServiceClick('Setup Server Minecraft')">Liên Hệ Báo Giá</button>
             </div>
             
-            <div class="service-card glass-panel" style="min-width: 300px;">
+            <div class="service-card glass-panel" style="min-width: 280px;">
                 <h2 style="color: #ffcc00;">💻 Code Plugin Theo Yêu Cầu</h2>
-                <p>Nhận thiết kế, lập trình Plugin và Script độc quyền theo ý tưởng riêng của bạn. Đảm bảo code sạch, nhẹ và tương thích tốt.</p>
-                <button class="cta-btn" style="margin-top: 15px;" onclick="handleServiceClick('Code Plugin Minecraft')">Liên Hệ Báo Giá</button>
+                <div style="text-align: left; margin-bottom: 20px; color: #aaaaaa; line-height: 1.8;">
+                    <p>• Thiết kế và lập trình Plugin độc quyền.</p>
+                    <p>• Code Script tùy chỉnh các tính năng riêng biệt (Vũ khí, Item, Kỹ năng...).</p>
+                    <p>• Tối ưu hóa code nhẹ, sạch, tương thích tốt với các phiên bản.</p>
+                    <p>• Hỗ trợ fix lỗi và cập nhật theo yêu cầu.</p>
+                </div>
+                <button class="cta-btn" onclick="handleServiceClick('Code Plugin Theo Yêu Cầu')">Liên Hệ Báo Giá</button>
             </div>
         </div>
     </main>
 
-    <div id="authModal" class="modal"><div class="modal-content glass-panel"><span class="close" onclick="document.getElementById('authModal').style.display='none'">&times;</span><h2 id="modalTitle" style="margin-bottom: 20px; color: #ffcc00;">Đăng nhập</h2><form id="authForm"><div id="displayNameContainer" style="display: none;"><input type="text" id="displayName" placeholder="Tên hiển thị (VD: Lôi Thần)"></div><input type="email" id="email" placeholder="Email của bạn" required><input type="password" id="password" placeholder="Mật khẩu (từ 6 ký tự)" required><button type="submit" class="cta-btn glow-btn" style="width: 100%; margin-top: 20px;">Xác nhận</button></form><p style="margin-top: 20px; text-align: center;"><a href="#" onclick="toggleAuthMode()" id="toggleAuthText" style="color: #aaaaaa; text-decoration: none; font-size: 14px; transition: 0.3s;">Chưa có tài khoản? <b>Đăng ký ngay</b></a></p></div></div>
-    <div id="pbAlertModal" class="modal" style="z-index: 99999;"><div class="modal-content glass-panel" style="max-width: 320px; text-align: center; padding: 30px; border-color: #ffcc00;"><h2 id="pbAlertTitle" style="color: #ffcc00; margin-bottom: 15px; font-size: 22px;">⚡ P&B Thunder</h2><p id="pbAlertMessage" style="color: #dddddd; margin-bottom: 25px; line-height: 1.6; font-size: 15.5px;"></p><button id="pbAlertBtn" class="cta-btn glow-btn" onclick="document.getElementById('pbAlertModal').style.display='none'" style="width: 100%;">Đã Hiểu</button></div></div>
+    <div id="authModal" class="modal">
+        <div class="modal-content glass-panel">
+            <span class="close" onclick="document.getElementById('authModal').style.display='none'">&times;</span>
+            <h2 id="modalTitle" style="margin-bottom: 20px; color: #ffcc00;">Đăng nhập</h2>
+            <form id="authForm">
+                <div id="displayNameContainer" style="display: none;">
+                    <input type="text" id="displayName" placeholder="Tên hiển thị (VD: Lôi Thần)">
+                </div>
+                <input type="email" id="email" placeholder="Email của bạn" required>
+                <input type="password" id="password" placeholder="Mật khẩu (từ 6 ký tự)" required>
+                <button type="submit" class="cta-btn glow-btn" style="width: 100%; margin-top: 20px;">Xác nhận</button>
+            </form>
+            <p style="margin-top: 20px; text-align: center;">
+                <a href="#" onclick="toggleAuthMode()" id="toggleAuthText" style="color: #aaaaaa; text-decoration: none; font-size: 14px; transition: 0.3s;">Chưa có tài khoản? <b>Đăng ký ngay</b></a>
+            </p>
+        </div>
+    </div>
+
+    <div id="pbAlertModal" class="modal" style="z-index: 99999;">
+        <div class="modal-content glass-panel" style="max-width: 320px; text-align: center; padding: 30px; border-color: #ffcc00; box-shadow: 0 0 30px rgba(255, 204, 0, 0.2);">
+            <h2 id="pbAlertTitle" style="color: #ffcc00; margin-bottom: 15px; font-size: 22px;">⚡ P&B Thunder</h2>
+            <p id="pbAlertMessage" style="color: #dddddd; margin-bottom: 25px; line-height: 1.6; font-size: 15.5px;"></p>
+            <button id="pbAlertBtn" class="cta-btn glow-btn" onclick="document.getElementById('pbAlertModal').style.display='none'" style="width: 100%;">Đã Hiểu</button>
+        </div>
+    </div>
 
     <script type="module" src="script.js"></script>
 </body>
