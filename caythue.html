@@ -13,7 +13,10 @@
         </div>
         <button class="mobile-toggle" onclick="document.getElementById('headerRight').classList.toggle('show')">☰</button>
         <div class="header-right" id="headerRight">
-            <nav><a href="index.html">Trang chủ</a></nav>
+            <nav>
+                <a href="index.html">Trang chủ</a>
+                <a href="dichvu.html" class="active">Dịch vụ</a>
+            </nav>
             <div class="auth-buttons">
                 <button id="loginBtnTrigger" class="login-btn glow-btn" onclick="document.getElementById('authModal').style.display='flex'">👤 Đăng nhập</button>
                 <div id="userProfile" style="display: none; align-items: center; gap: 15px;">
@@ -24,10 +27,10 @@
         </div>
     </header>
 
-    <main style="padding: 40px 20px; flex-direction: column; width: 100%; align-items: center;">
+    <main style="padding: 40px 20px; flex-direction: column; width: 100%; align-items: center; display: flex;">
         <div style="width: 100%; max-width: 1000px; margin: 0 auto 20px auto; display: flex; justify-content: flex-start;">
-            <button onclick="window.location.href='index.html'" class="login-btn outline-btn" style="display: flex; align-items: center; gap: 8px; padding: 10px 20px;">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Quay lại
+            <button onclick="window.location.href='dichvu.html'" class="login-btn outline-btn" style="display: flex; align-items: center; gap: 8px; padding: 10px 20px;">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Quay lại Dịch vụ
             </button>
         </div>
 
@@ -50,7 +53,7 @@
             <div class="service-card glass-panel" style="min-width: 300px;">
                 <h2 style="color: #ffcc00;">🔫 Free Fire</h2>
                 <div style="text-align: left; margin-bottom: 20px; color: #aaaaaa; line-height: 1.8;">
-                    <p>• <b>Mức giá chung:</b> 1.000 VNĐ / 5 sao</p>
+                    <p>• <b>Mọi bậc rank:</b> 1.000 VNĐ / 5 sao</p>
                     <p><i>(Lưu ý: Giá có thể dao động nhẹ tùy thuộc vào mức rank hiện tại của tài khoản)</i></p>
                 </div>
                 <button class="cta-btn" onclick="handleServiceClick('Cày Thuê Free Fire')">Liên Hệ Đặt Lịch</button>
@@ -60,7 +63,7 @@
                 <h2 style="color: #ffcc00;">🧱 Roblox</h2>
                 <div style="text-align: left; margin-bottom: 20px; color: #aaaaaa; line-height: 1.8;">
                     <p>• Nhận cày Level, cày Beli/Frament, farm vật phẩm Blox Fruits...</p>
-                    <p>• <b>Mức giá:</b> Tùy thuộc vào yêu cầu cụ thể và độ khó của từng tựa game trong Roblox.</p>
+                    <p>• <b>Mức giá:</b> Tùy thuộc vào yêu cầu cụ thể và độ khó của từng tựa game.</p>
                 </div>
                 <button class="cta-btn" onclick="handleServiceClick('Cày Thuê Roblox')">Liên Hệ Báo Giá</button>
             </div>
