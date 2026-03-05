@@ -15,10 +15,12 @@
         <div class="header-right" id="headerRight">
             <nav>
                 <a href="index.html">Trang chủ</a>
+                <a href="about.html">Giới thiệu</a>
                 <a href="dichvu.html" class="active">Dịch vụ</a>
+                <a href="contact.html">Liên hệ</a>
             </nav>
             <div class="auth-buttons">
-                <button id="loginBtnTrigger" class="login-btn glow-btn" onclick="document.getElementById('authModal').style.display='flex'">👤 Đăng nhập</button>
+                <button id="loginBtnTrigger" class="login-btn glow-btn" onclick="document.getElementById('authModal').style.display='flex'">Đăng nhập</button>
                 <div id="userProfile" style="display: none; align-items: center; gap: 15px;">
                     <span id="userGreeting" class="user-greeting"></span>
                     <button id="logoutBtn" class="login-btn outline-btn">Đăng xuất</button>
@@ -52,9 +54,15 @@
     </main>
 
     <div id="authModal" class="modal"><div class="modal-content glass-panel"><span class="close" onclick="document.getElementById('authModal').style.display='none'">&times;</span><h2 id="modalTitle" style="margin-bottom: 20px; color: #ffcc00;">Đăng nhập</h2><form id="authForm"><div id="displayNameContainer" style="display: none;"><input type="text" id="displayName" placeholder="Tên hiển thị (VD: Lôi Thần)"></div><input type="email" id="email" placeholder="Email của bạn" required><input type="password" id="password" placeholder="Mật khẩu (từ 6 ký tự)" required><button type="submit" class="cta-btn glow-btn" style="width: 100%; margin-top: 20px;">Xác nhận</button></form><p style="margin-top: 20px; text-align: center;"><a href="#" onclick="toggleAuthMode()" id="toggleAuthText" style="color: #aaaaaa; text-decoration: none; font-size: 14px; transition: 0.3s;">Chưa có tài khoản? <b>Đăng ký ngay</b></a></p></div></div>
-    <div id="pbAlertModal" class="modal" style="z-index: 99999;"><div class="modal-content glass-panel" style="max-width: 320px; text-align: center; padding: 30px; border-color: #ffcc00;"><h2 id="pbAlertTitle" style="color: #ffcc00; margin-bottom: 15px; font-size: 22px;">⚡ P&B Thunder</h2><p id="pbAlertMessage" style="color: #dddddd; margin-bottom: 25px; line-height: 1.6; font-size: 15.5px;"></p><button id="pbAlertBtn" class="cta-btn glow-btn" onclick="document.getElementById('pbAlertModal').style.display='none'" style="width: 100%;">Đã Hiểu</button></div></div>
+    <div id="pbAlertModal" class="modal" style="z-index: 99999;"><div class="modal-content glass-panel" style="max-width: 320px; text-align: center; padding: 30px; border-color: #ffcc00; box-shadow: 0 0 30px rgba(255, 204, 0, 0.2);"><h2 id="pbAlertTitle" style="color: #ffcc00; margin-bottom: 15px; font-size: 22px;">⚡ P&B Thunder</h2><p id="pbAlertMessage" style="color: #dddddd; margin-bottom: 25px; line-height: 1.6; font-size: 15.5px;"></p><button id="pbAlertBtn" class="cta-btn glow-btn" onclick="document.getElementById('pbAlertModal').style.display='none'" style="width: 100%;">Đã Hiểu</button></div></div>
 
     <script type="module" src="script.js"></script>
+    <script>
+        function toggleMenu() { document.getElementById('headerRight').classList.toggle('show'); }
+        function openModal() { document.getElementById("authModal").style.display = "flex"; }
+        function closeModal() { document.getElementById("authModal").style.display = "none"; }
+        function closePbAlert() { document.getElementById("pbAlertModal").style.display = "none"; }
+    </script>
 </body>
 </html>
 
