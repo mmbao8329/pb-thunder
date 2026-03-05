@@ -27,7 +27,6 @@ window.toggleAuthMode = function() {
     isLoginMode = !isLoginMode;
     document.getElementById("modalTitle").innerText = isLoginMode ? "Đăng nhập" : "Đăng ký";
     document.getElementById("toggleAuthText").innerHTML = isLoginMode ? "Chưa có tài khoản? <b>Đăng ký ngay</b>" : "Đã có tài khoản? <b>Đăng nhập</b>";
-    
     const nameContainer = document.getElementById("displayNameContainer");
     const nameInput = document.getElementById("displayName");
     if(isLoginMode) {
@@ -51,7 +50,7 @@ document.getElementById("authForm").addEventListener("submit", (e) => {
                 updateProfile(userCredential.user, { displayName: displayName })
                 .then(() => {
                     document.getElementById("authModal").style.display = "none";
-                    showPbAlert("✨ Đăng Ký Thành Công", `Chào mừng lính mới: <b>${displayName}</b>! <br>Hệ thống đang tải lại...`);
+                    showPbAlert("Đăng Ký Thành Công", `Chào mừng lính mới: <b>${displayName}</b>! <br>Hệ thống đang tải lại...`);
                     setTimeout(() => location.reload(), 2000); 
                 });
             })
@@ -60,7 +59,7 @@ document.getElementById("authForm").addEventListener("submit", (e) => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 document.getElementById("authModal").style.display = "none";
-                showPbAlert("⚡ Đăng Nhập Thành Công", " Chào mừng bạn đã trở lại!");
+                showPbAlert("Đăng Nhập Thành Công");
             })
             .catch((error) => { showPbAlert("❌ Lỗi Truy Cập", "Sai email hoặc mật khẩu!<br>Vui lòng kiểm tra lại."); });
     }
@@ -69,23 +68,95 @@ document.getElementById("authForm").addEventListener("submit", (e) => {
 document.getElementById("logoutBtn").addEventListener("click", () => {
     signOut(auth).then(() => { 
         window.isUserLoggedIn = false;
-        showPbAlert("👋 Tạm Biệt", "Đã ngắt kết nối khỏi hệ thống P&B Thunder.");
+        if(window.location.pathname.includes('profile.html')) {
+            window.location.href = 'index.html';
+        } else {
+            showPbAlert("👋 Tạm Biệt", "Đã ngắt kết nối khỏi hệ thống P&B Thunder.");
+        }
     });
 });
 
+// QUẢN LÝ DỮ LIỆU NGƯỜI DÙNG & AVATAR MENU Ở ĐÂY
 onAuthStateChanged(auth, (user) => {
     if (user) {
         window.isUserLoggedIn = true;
         document.getElementById('loginBtnTrigger').style.display = 'none';
         document.getElementById('userProfile').style.display = 'flex';
+        
         const showName = user.displayName ? user.displayName : user.email;
-        document.getElementById('userGreeting').innerText = "Xin Chào, " + showName;
+        const greetingEl = document.getElementById('userGreeting');
+        
+        // Khởi tạo Avatar HTML
+        let avatarHtml = `<div style="width: 35px; height: 35px; border-radius: 50%; border: 2px solid #ffcc00; display: flex; align-items: center; justify-content: center; background: #222;">
+                            <svg width="20" height="20" fill="#ffcc00" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+                          </div>`;
+        // Nếu user có ảnh thì ghi đè lên
+        if(user.photoURL) {
+            avatarHtml = `<img src="${user.photoURL}" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 2px solid #ffcc00; background: #222;">`;
+        }
+
+        // Bơm Avatar + Tên vào thanh Menu
+        if(greetingEl) {
+            greetingEl.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px; cursor: pointer;" onclick="window.location.href='profile.html'">
+                    ${avatarHtml}
+                    <span style="font-weight: bold; text-decoration: underline;">Chào, ${showName}</span>
+                </div>
+            `;
+            greetingEl.title = "Bấm để xem hồ sơ của bạn";
+        }
+
+        // Đổ dữ liệu vào trang Profile.html nếu đang mở trang đó
+        if(document.getElementById('profileName')) {
+            document.getElementById('profileName').innerText = showName;
+            document.getElementById('profileEmail').innerText = user.email;
+            document.getElementById('profileUid').innerText = user.uid;
+            if(user.phoneNumber) document.getElementById('profilePhone').innerText = user.phoneNumber;
+            
+            if(user.photoURL) {
+                document.getElementById('avatarDisplay').innerHTML = `<img src="${user.photoURL}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`;
+            }
+        }
+
     } else {
         window.isUserLoggedIn = false;
         document.getElementById('loginBtnTrigger').style.display = 'block';
         document.getElementById('userProfile').style.display = 'none';
+        
+        if(window.location.pathname.includes('profile.html')) {
+            alert("Vui lòng đăng nhập để xem hồ sơ!");
+            window.location.href = 'index.html';
+        }
     }
 });
+
+// HÀM ĐỔI TÊN HIỂN THỊ
+window.updateUserName = function() {
+    const newName = prompt("Nhập Tên hiển thị mới của bạn:");
+    if (newName && newName.trim() !== "") {
+        updateProfile(auth.currentUser, { displayName: newName })
+        .then(() => {
+            showPbAlert("✨ Thành công", "Tên hiển thị đã được cập nhật! Trang sẽ tự tải lại.");
+            setTimeout(() => location.reload(), 1500); 
+        }).catch((error) => {
+            showPbAlert("❌ Lỗi", "Không thể đổi tên: " + error.message);
+        });
+    }
+}
+
+// HÀM ĐỔI AVATAR (Cập nhật cả Menu và Hồ sơ tức thì)
+window.updateUserAvatar = function() {
+    const newPhotoUrl = prompt("Dán link URL hình ảnh bạn muốn làm Avatar vào đây (vd: https://.../anh.jpg):");
+    if (newPhotoUrl && newPhotoUrl.trim() !== "") {
+        updateProfile(auth.currentUser, { photoURL: newPhotoUrl })
+        .then(() => {
+            showPbAlert("✨ Thành công", "Avatar đã được cập nhật! Trang sẽ tự tải lại.");
+            setTimeout(() => location.reload(), 1500); 
+        }).catch((error) => {
+            showPbAlert("❌ Lỗi", "Lỗi cập nhật ảnh: Xin hãy chắc chắn link ảnh của bạn hợp lệ.");
+        });
+    }
+}
 
 window.handleServiceClick = function(serviceName) {
     if (window.isUserLoggedIn) {
