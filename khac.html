@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dịch Vụ Minecraft - P&B Thunder</title>
+    <title>Dịch Vụ Khác - P&B Thunder</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,9 +13,7 @@
         </div>
         <button class="mobile-toggle" onclick="document.getElementById('headerRight').classList.toggle('show')">☰</button>
         <div class="header-right" id="headerRight">
-            <nav>
-                <a href="index.html">Trang chủ</a>
-            </nav>
+            <nav><a href="index.html">Trang chủ</a></nav>
             <div class="auth-buttons">
                 <button id="loginBtnTrigger" class="login-btn glow-btn" onclick="document.getElementById('authModal').style.display='flex'">👤 Đăng nhập</button>
                 <div id="userProfile" style="display: none; align-items: center; gap: 15px;">
@@ -34,21 +32,15 @@
         </div>
 
         <div style="text-align: center; margin-bottom: 50px;">
-            <h1 class="gradient-text" style="font-size: 42px;">Dịch Vụ Minecraft</h1>
-            <p style="color: #aaaaaa; margin-top: 10px;">Chuyên nghiệp - Tối ưu - Chuẩn xác</p>
+            <h1 class="gradient-text" style="font-size: 42px;">Các Dịch Vụ Khác</h1>
+            <p style="color: #aaaaaa; margin-top: 10px;">Chúng tôi luôn sẵn sàng hỗ trợ mọi yêu cầu của bạn</p>
         </div>
 
-        <div class="services-container" style="flex-wrap: wrap;">
-            <div class="service-card glass-panel" style="min-width: 300px;">
-                <h2 style="color: #ffcc00;">⚙️ Setup Server</h2>
-                <p>Nhận cài đặt cơ bản, tối ưu hóa hệ thống, cấu hình máy chủ Minecraft từ A-Z giúp server hoạt động mượt mà, không giật lag.</p>
-                <button class="cta-btn" style="margin-top: 15px;" onclick="handleServiceClick('Setup Server Minecraft')">Liên Hệ Báo Giá</button>
-            </div>
-            
-            <div class="service-card glass-panel" style="min-width: 300px;">
-                <h2 style="color: #ffcc00;">💻 Code Plugin Theo Yêu Cầu</h2>
-                <p>Nhận thiết kế, lập trình Plugin và Script độc quyền theo ý tưởng riêng của bạn. Đảm bảo code sạch, nhẹ và tương thích tốt.</p>
-                <button class="cta-btn" style="margin-top: 15px;" onclick="handleServiceClick('Code Plugin Minecraft')">Liên Hệ Báo Giá</button>
+        <div class="services-container" style="flex-wrap: wrap; justify-content: center;">
+            <div class="service-card glass-panel" style="max-width: 600px;">
+                <h2 style="color: #ffcc00;">💬 Dịch vụ theo yêu cầu</h2>
+                <p>Bạn cần mua bán vật phẩm, trao đổi tài khoản, hay bất kỳ dịch vụ công nghệ, giải trí nào khác? Đừng ngần ngại liên hệ trực tiếp với chúng tôi để được tư vấn và báo giá chi tiết nhé!</p>
+                <button class="cta-btn" style="margin-top: 15px;" onclick="handleServiceClick('Dịch vụ theo yêu cầu riêng')">Trò chuyện với Admin</button>
             </div>
         </div>
     </main>
