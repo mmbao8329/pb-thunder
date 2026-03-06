@@ -49,8 +49,6 @@
 
         <div class="contact-card glass-panel" style="max-width: 600px; width: 100%; text-align: center; padding: 30px;">
             
-            <span id="profileUid" style="display: none;"></span>
-
             <div class="step-box" style="text-align: left;">
                 <h3 style="color: #ffcc00; margin-bottom: 10px;">Hướng dẫn nạp tiền:</h3>
                 <p style="color: #ccc; line-height: 1.6; font-size: 15px;">
@@ -83,10 +81,8 @@
 
     <script>
         window.generateQR = function() {
-            // Lấy UID đã được script.js tải về
-            const uidElement = document.getElementById("profileUid");
-            
-            if (!window.isUserLoggedIn || !uidElement || !uidElement.innerText) {
+            // Lấy thẳng biến UID toàn cầu từ script.js sang
+            if (!window.isUserLoggedIn || !window.currentUserUid) {
                 document.getElementById("pbAlertTitle").innerText = "⚠️ Cảnh Báo";
                 document.getElementById("pbAlertMessage").innerText = "Vui lòng đăng nhập để tạo mã nạp tiền!";
                 document.getElementById("pbAlertModal").style.display = "flex";
@@ -101,21 +97,16 @@
                 return;
             }
 
-            // === CẤU HÌNH NGÂN HÀNG CỦA BẠN ===
             const BANK_ID = "MBBank"; 
             const ACCOUNT_NO = "0898481579"; 
 
-            // Lấy Full UID tạo nội dung
-            const fullUid = uidElement.innerText.toUpperCase();
+            // Cấu trúc API SePay chuẩn đét
+            const fullUid = window.currentUserUid.toUpperCase();
             const transferContent = "NAP " + fullUid;
-
-            // Hàm này cực kỳ quan trọng: Ép mã hóa khoảng trắng (dấu cách thành %20) để app ngân hàng đọc được
             const encodedContent = encodeURIComponent(transferContent);
 
-            // Link API tạo QR chính thức của SePay
             const qrUrl = "https://qr.sepay.vn/img?bank=" + BANK_ID + "&acc=" + ACCOUNT_NO + "&amount=" + amountInput + "&des=" + encodedContent;
 
-            // Đẩy mã ra màn hình
             document.getElementById("qrImage").src = qrUrl;
             document.getElementById("qrSyntax").innerText = "Nội dung: " + transferContent;
             document.getElementById("qrWrapper").style.display = "block";

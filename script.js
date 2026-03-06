@@ -1,6 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
-// Thêm thư viện Database thời gian thực
 import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js";
 
 const firebaseConfig = {
@@ -15,9 +14,10 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getDatabase(app); // Khởi động Két sắt
+const db = getDatabase(app);
 
 window.isUserLoggedIn = false;
+window.currentUserUid = ""; // LƯU UID TOÀN CẦU ĐỂ DÙNG CHUNG
 
 window.showPbAlert = function(title, message) {
     document.getElementById("pbAlertTitle").innerHTML = title;
@@ -53,9 +53,7 @@ document.getElementById("authForm").addEventListener("submit", (e) => {
                 const user = userCredential.user;
                 updateProfile(user, { displayName: displayName })
                 .then(() => {
-                    // Tạo tài khoản ví mặc định là 0 VNĐ cho người mới
                     set(ref(db, 'users/' + user.uid + '/balance'), 0);
-                    
                     document.getElementById("authModal").style.display = "none";
                     showPbAlert("✨ Kích Hoạt Thành Công", `Chào mừng lính mới: <b>${displayName}</b>! <br>Hệ thống đang tải lại...`);
                     setTimeout(() => location.reload(), 2000); 
@@ -75,6 +73,7 @@ document.getElementById("authForm").addEventListener("submit", (e) => {
 document.getElementById("logoutBtn").addEventListener("click", () => {
     signOut(auth).then(() => { 
         window.isUserLoggedIn = false;
+        window.currentUserUid = "";
         if(window.location.pathname.includes('profile.html') || window.location.pathname.includes('naptien.html')) {
             window.location.href = 'index.html';
         } else {
@@ -86,6 +85,8 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
 onAuthStateChanged(auth, (user) => {
     if (user) {
         window.isUserLoggedIn = true;
+        window.currentUserUid = user.uid; // CẬP NHẬT UID KHI ĐĂNG NHẬP
+        
         document.getElementById('loginBtnTrigger').style.display = 'none';
         document.getElementById('userProfile').style.display = 'flex';
         
@@ -101,7 +102,6 @@ onAuthStateChanged(auth, (user) => {
             greetingEl.innerHTML = `<div style="display: flex; align-items: center; gap: 10px; cursor: pointer;" onclick="window.location.href='profile.html'">${avatarHtml}<span style="font-weight: bold; text-decoration: underline;">Chào, ${showName}</span></div>`;
         }
 
-        // Đổ dữ liệu vào trang Profile
         if(document.getElementById('profileName')) {
             document.getElementById('profileName').innerText = showName;
             document.getElementById('profileEmail').innerText = user.email;
@@ -111,17 +111,16 @@ onAuthStateChanged(auth, (user) => {
                 document.getElementById('avatarDisplay').innerHTML = `<img src="${user.photoURL}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`;
             }
 
-            // KẾT NỐI VÀ ĐỌC SỐ DƯ REAL-TIME TỪ FIREBASE
             const balanceRef = ref(db, 'users/' + user.uid + '/balance');
             onValue(balanceRef, (snapshot) => {
                 const data = snapshot.val();
                 const currentBalance = data ? data : 0;
-                // Hiển thị số dư có dấu chấm (VD: 50.000)
                 document.getElementById('userBalance').innerText = currentBalance.toLocaleString('vi-VN');
             });
         }
     } else {
         window.isUserLoggedIn = false;
+        window.currentUserUid = "";
         document.getElementById('loginBtnTrigger').style.display = 'block';
         document.getElementById('userProfile').style.display = 'none';
         if(window.location.pathname.includes('profile.html') || window.location.pathname.includes('naptien.html')) {
@@ -164,7 +163,6 @@ window.updateUserName = function() {
 window.handleAvatarUpload = async function(event) {
     const file = event.target.files[0];
     if (!file) return;
-
     if (file.size > 5 * 1024 * 1024) {
         showPbAlert("❌ Lỗi", "Kích thước ảnh quá lớn. Vui lòng chọn ảnh nhẹ hơn 5MB.");
         return;
@@ -175,7 +173,7 @@ window.handleAvatarUpload = async function(event) {
 
     showPbAlert("⏳ Đang xử lý", "Hệ thống đang tải ảnh lên máy chủ, vui lòng không tắt trang...");
 
-    const imgbbApiKey = "4f889d3d111eb895df6dd2173bbe6f55"; 
+    const imgbbApiKey = "cfc749b5ebaf6dcbc8df57ef59b20727"; 
     const formData = new FormData();
     formData.append("image", file);
 
