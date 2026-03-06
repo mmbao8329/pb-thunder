@@ -17,7 +17,7 @@
                 <a href="index.html" class="active">Trang chủ</a>
                 <a href="about.html">Giới thiệu</a>
                 <a href="dichvu.html">Dịch vụ</a>
-                <a href="contact.html">Liên hệ</a>
+                <a href="naptien.html">Nạp tiền</a> <a href="contact.html">Liên hệ</a>
             </nav>
             <div class="auth-buttons">
                 <button id="loginBtnTrigger" class="login-btn glow-btn" onclick="document.getElementById('authModal').style.display='flex'">Đăng nhập</button>
@@ -37,7 +37,11 @@
                 <div class="stat-item"><h2>99%</h2><p>Bảo mật</p></div>
                 <div class="stat-item"><h2>24/7</h2><p>Hoạt động</p></div>
             </div>
-            <button class="cta-btn glow-btn" onclick="window.location.href='dichvu.html'">Khám phá ngay</button>
+            
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
+                <button class="cta-btn glow-btn" onclick="window.location.href='dichvu.html'">Khám phá ngay</button>
+                <button class="cta-btn outline-btn" onclick="window.location.href='naptien.html'" style="border-color: #00ffcc; color: #00ffcc; box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);">💰 Nạp Tiền</button>
+            </div>
         </div>
 
         <div class="hero-image">
@@ -48,7 +52,7 @@
     </main>
 
     <div id="authModal" class="modal"><div class="modal-content glass-panel"><span class="close" onclick="document.getElementById('authModal').style.display='none'">&times;</span><h2 id="modalTitle" style="margin-bottom: 20px; color: #ffcc00;">Đăng nhập</h2><form id="authForm"><div id="displayNameContainer" style="display: none;"><input type="text" id="displayName" placeholder="Tên hiển thị (VD: Lôi Thần)"></div><input type="email" id="email" placeholder="Email của bạn" required><input type="password" id="password" placeholder="Mật khẩu (từ 6 ký tự)" required><button type="submit" class="cta-btn glow-btn" style="width: 100%; margin-top: 20px;">Xác nhận</button></form><p style="margin-top: 20px; text-align: center;"><a href="#" onclick="toggleAuthMode()" id="toggleAuthText" style="color: #aaaaaa; text-decoration: none; font-size: 14px; transition: 0.3s;">Chưa có tài khoản? <b>Đăng ký ngay</b></a></p></div></div>
-    <div id="pbAlertModal" class="modal" style="z-index: 99999;"><div class="modal-content glass-panel" style="max-width: 320px; text-align: center; padding: 30px; border-color: #ffcc00; box-shadow: 0 0 30px rgba(255, 204, 0, 0.2);"><h2 id="pbAlertTitle" style="color: #ffcc00; margin-bottom: 15px; font-size: 22px;">⚡ P&B Thunder</h2><p id="pbAlertMessage" style="color: #dddddd; margin-bottom: 25px; line-height: 1.6; font-size: 15.5px;"></p><button id="pbAlertBtn" class="cta-btn glow-btn" onclick="document.getElementById('pbAlertModal').style.display='none'" style="width: 100%;">Đã Hiểu</button></div></div>
+    <div id="pbAlertModal" class="modal" style="z-index: 99999;"><div class="modal-content glass-panel" style="max-width: 320px; text-align: center; padding: 30px; border-color: #ffcc00; box-shadow: 0 0 30px rgba(255, 204, 0, 0.2);"><h2 id="pbAlertTitle" style="color: #ffcc00; margin-bottom: 15px; font-size: 22px;">⚡ P&B Thunder</h2><p id="pbAlertMessage" style="color: #dddddd; margin-bottom: 25px; line-height: 1.6; font-size: 15.5px;"></p><button class="cta-btn glow-btn" onclick="document.getElementById('pbAlertModal').style.display='none'" style="width: 100%;">Đã Hiểu</button></div></div>
 
     <script type="module" src="script.js"></script>
 </body>
