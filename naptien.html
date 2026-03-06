@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nạp Tiền Tự Động - P&B Thunder</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .qr-container { background: white; padding: 20px; border-radius: 15px; display: inline-block; margin-top: 20px; box-shadow: 0 0 30px rgba(0, 255, 204, 0.4); display: none; transition: 0.3s;}
+        .qr-container img { width: 250px; height: 250px; border-radius: 10px; }
+        .amount-input { width: 100%; padding: 15px; font-size: 18px; border-radius: 10px; border: 2px solid #00ffcc; background: #111; color: #00ffcc; text-align: center; margin-bottom: 20px; font-weight: bold; outline: none;}
+        .step-box { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; margin-bottom: 20px; border-left: 4px solid #ffcc00;}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" onclick="window.location.href='index.html'">
+            <span class="icon">⚡</span> P&B Thunder
+        </div>
+        <button class="mobile-toggle" onclick="document.getElementById('headerRight').classList.toggle('show')">☰</button>
+        <div class="header-right" id="headerRight">
+            <nav>
+                <a href="index.html">Trang chủ</a>
+                <a href="about.html">Giới thiệu</a>
+                <a href="dichvu.html">Dịch vụ</a>
+                <a href="contact.html">Liên hệ</a>
+            </nav>
+            <div class="auth-buttons">
+                <button id="loginBtnTrigger" class="login-btn glow-btn" onclick="document.getElementById('authModal').style.display='flex'">👤 Đăng nhập</button>
+                <div id="userProfile" style="display: none; align-items: center; gap: 15px;">
+                    <span id="userGreeting" class="user-greeting"></span>
+                    <button id="logoutBtn" class="login-btn outline-btn">Đăng xuất</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main style="padding: 40px 20px; flex-direction: column; width: 100%; align-items: center; display: flex;">
+        <div style="width: 100%; max-width: 600px; margin: 0 auto 20px auto; display: flex; justify-content: flex-start;">
+            <button onclick="window.location.href='profile.html'" class="login-btn outline-btn" style="display: flex; align-items: center; gap: 8px; padding: 10px 20px;">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Quay lại Hồ sơ
+            </button>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h1 class="gradient-text" style="font-size: 38px;">Nạp Tiền Tự Động</h1>
+            <p style="color: #aaaaaa; margin-top: 10px;">Hệ thống tạo mã QR chuẩn SePay - Tự động điền 100%</p>
+        </div>
+
+        <div class="contact-card glass-panel" style="max-width: 600px; width: 100%; text-align: center; padding: 30px;">
+            
+            <span id="profileUid" style="display: none;"></span>
+
+            <div class="step-box" style="text-align: left;">
+                <h3 style="color: #ffcc00; margin-bottom: 10px;">Hướng dẫn nạp tiền:</h3>
+                <p style="color: #ccc; line-height: 1.6; font-size: 15px;">
+                    1. Nhập số tiền bạn muốn nạp vào ô bên dưới.<br>
+                    2. Bấm "Tạo Mã QR".<br>
+                    3. Mở App Ngân hàng quét mã QR (Hệ thống sẽ tự điền Số tiền & Nội dung).<br>
+                    4. Chuyển khoản xong, web sẽ tự động cộng tiền trong 10 - 30 giây.
+                </p>
+            </div>
+
+            <p style="color: #aaaaaa; margin-bottom: 10px; font-weight: bold;">Nhập số tiền cần nạp (VNĐ):</p>
+            <input type="number" id="topupAmount" class="amount-input" placeholder="Ví dụ: 50000" min="10000" step="10000">
+            
+            <button class="cta-btn glow-btn" style="width: 100%; font-size: 18px;" onclick="generateQR()">Tạo Mã QR Tự Động</button>
+
+            <div id="qrWrapper" class="qr-container">
+                <h3 style="color: #333; margin-bottom: 10px; font-size: 16px;">Quét mã để thanh toán</h3>
+                <img id="qrImage" src="" alt="QR Code">
+                <p style="color: #555; margin-top: 15px; font-size: 14px; font-weight: bold;" id="qrSyntax"></p>
+                <p style="color: #e74c3c; margin-top: 5px; font-size: 13px;">⚠️ Giữ nguyên nội dung để hệ thống tự cộng tiền!</p>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="authModal" class="modal"><div class="modal-content glass-panel"><span class="close" onclick="document.getElementById('authModal').style.display='none'">&times;</span><h2 id="modalTitle" style="margin-bottom: 20px; color: #ffcc00;">Đăng nhập</h2><form id="authForm"><div id="displayNameContainer" style="display: none;"><input type="text" id="displayName" placeholder="Tên hiển thị (VD: Lôi Thần)"></div><input type="email" id="email" placeholder="Email của bạn" required><input type="password" id="password" placeholder="Mật khẩu (từ 6 ký tự)" required><button type="submit" class="cta-btn glow-btn" style="width: 100%; margin-top: 20px;">Xác nhận</button></form><p style="margin-top: 20px; text-align: center;"><a href="#" onclick="toggleAuthMode()" id="toggleAuthText" style="color: #aaaaaa; text-decoration: none; font-size: 14px; transition: 0.3s;">Chưa có tài khoản? <b>Đăng ký ngay</b></a></p></div></div>
+    <div id="pbAlertModal" class="modal" style="z-index: 99999;"><div class="modal-content glass-panel" style="max-width: 320px; text-align: center; padding: 30px; border-color: #ffcc00;"><h2 id="pbAlertTitle" style="color: #ffcc00; margin-bottom: 15px; font-size: 22px;">⚡ P&B Thunder</h2><p id="pbAlertMessage" style="color: #dddddd; margin-bottom: 25px; line-height: 1.6; font-size: 15.5px;"></p><button class="cta-btn glow-btn" onclick="document.getElementById('pbAlertModal').style.display='none'" style="width: 100%;">Đã Hiểu</button></div></div>
+
+    <script type="module" src="script.js"></script>
+
+    <script>
+        window.generateQR = function() {
+            // Lấy UID đã được script.js tải về
+            const uidElement = document.getElementById("profileUid");
+            
+            if (!window.isUserLoggedIn || !uidElement || !uidElement.innerText) {
+                document.getElementById("pbAlertTitle").innerText = "⚠️ Cảnh Báo";
+                document.getElementById("pbAlertMessage").innerText = "Vui lòng đăng nhập để tạo mã nạp tiền!";
+                document.getElementById("pbAlertModal").style.display = "flex";
+                return;
+            }
+
+            const amountInput = document.getElementById("topupAmount").value;
+            if(!amountInput || amountInput < 10000) {
+                document.getElementById("pbAlertTitle").innerText = "❌ Lỗi";
+                document.getElementById("pbAlertMessage").innerText = "Số tiền nạp tối thiểu là 10.000 VNĐ";
+                document.getElementById("pbAlertModal").style.display = "flex";
+                return;
+            }
+
+            // === CẤU HÌNH NGÂN HÀNG CỦA BẠN ===
+            const BANK_ID = "MBBank"; 
+            const ACCOUNT_NO = "0898481579"; 
+
+            // Lấy Full UID tạo nội dung
+            const fullUid = uidElement.innerText.toUpperCase();
+            const transferContent = "NAP " + fullUid;
+
+            // Hàm này cực kỳ quan trọng: Ép mã hóa khoảng trắng (dấu cách thành %20) để app ngân hàng đọc được
+            const encodedContent = encodeURIComponent(transferContent);
+
+            // Link API tạo QR chính thức của SePay
+            const qrUrl = "https://qr.sepay.vn/img?bank=" + BANK_ID + "&acc=" + ACCOUNT_NO + "&amount=" + amountInput + "&des=" + encodedContent;
+
+            // Đẩy mã ra màn hình
+            document.getElementById("qrImage").src = qrUrl;
+            document.getElementById("qrSyntax").innerText = "Nội dung: " + transferContent;
+            document.getElementById("qrWrapper").style.display = "block";
+        }
+    </script>
+</body>
+</html>
+
