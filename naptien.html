@@ -6,36 +6,30 @@
     <title>Nạp Tiền - P&B Thunder</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* CSS cho Tab Nạp Tiền */
         .tab-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; }
         .tab-btn { flex: 1; padding: 12px; font-size: 16px; font-weight: bold; background: rgba(255,255,255,0.05); color: #aaa; border: 1px solid #555; border-radius: 10px; cursor: pointer; transition: 0.3s; }
         .tab-btn.active { background: rgba(0, 255, 204, 0.1); color: #00ffcc; border-color: #00ffcc; box-shadow: 0 0 15px rgba(0, 255, 204, 0.3); }
         .tab-content { display: none; animation: fadeIn 0.4s; }
         .tab-content.active { display: block; }
-        
-        /* CSS dùng chung */
         .input-box { width: 100%; padding: 15px; font-size: 16px; border-radius: 10px; border: 1px solid #555; background: rgba(0,0,0,0.5); color: white; margin-bottom: 15px; outline: none; transition: 0.3s;}
         .input-box:focus { border-color: #ffcc00; }
         .amount-input { font-size: 18px; border: 2px solid #00ffcc; color: #00ffcc; text-align: center; font-weight: bold;}
         .qr-container { background: white; padding: 20px; border-radius: 15px; display: inline-block; margin-top: 20px; box-shadow: 0 0 30px rgba(0, 255, 204, 0.4); display: none;}
         .qr-container img { width: 250px; height: 250px; border-radius: 10px; }
         .step-box { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #ffcc00; text-align: left;}
-        
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo" onclick="window.location.href='index.html'">
-            <span class="icon">⚡</span> P&B Thunder
-        </div>
+        <div class="logo" onclick="window.location.href='index.html'"><span class="icon">⚡</span> P&B Thunder</div>
         <button class="mobile-toggle" onclick="document.getElementById('headerRight').classList.toggle('show')">☰</button>
         <div class="header-right" id="headerRight">
             <nav>
                 <a href="index.html">Trang chủ</a>
                 <a href="about.html">Giới thiệu</a>
                 <a href="dichvu.html">Dịch vụ</a>
-                <a href="naptien.html">Nạp tiền</a>
+                <a href="naptien.html" class="active">Nạp tiền</a>
                 <a href="contact.html">Liên hệ</a>
             </nav>
             <div class="auth-buttons">
@@ -54,14 +48,11 @@
         </div>
 
         <div class="contact-card glass-panel" style="max-width: 600px; width: 100%; text-align: center; padding: 30px;">
-            
             <div style="background: rgba(0, 255, 204, 0.05); border: 1px solid rgba(0,255,204,0.3); padding: 15px; border-radius: 15px; margin-bottom: 25px;">
                 <p style="color: #aaa; font-size: 14px; margin-bottom: 5px;">SỐ DƯ HIỆN TẠI</p>
                 <h2 style="font-size: 32px; color: #fff;"><span id="userBalance" style="color: #00ffcc;">0</span> VNĐ</h2>
             </div>
-
             <span id="profileUid" style="display: none;"></span>
-            <span id="profileName" style="display: none;"></span>
 
             <div class="tab-container">
                 <button class="tab-btn active" onclick="switchTab('bank')">🏦 Chuyển Khoản</button>
@@ -69,14 +60,9 @@
             </div>
 
             <div id="bankTab" class="tab-content active">
-                <div class="step-box">
-                    <p style="color: #ccc; font-size: 14.5px; line-height: 1.6;">
-                        ⚡ <b>Tự động 100%:</b> Quét mã QR để chuyển khoản. Hệ thống tự động điền nội dung và cộng tiền vào tài khoản sau 10-30 giây.
-                    </p>
-                </div>
+                <div class="step-box"><p style="color: #ccc; font-size: 14.5px; line-height: 1.6;">⚡ <b>Tự động 100%:</b> Quét mã QR chuyển khoản. Hệ thống tự cộng tiền sau 10-30 giây.</p></div>
                 <input type="number" id="topupAmount" class="input-box amount-input" placeholder="Nhập số tiền (VD: 50000)" min="10000" step="10000">
                 <button class="cta-btn glow-btn" style="width: 100%; font-size: 16px;" onclick="generateQR()">Tạo Mã QR Tự Động</button>
-
                 <div id="qrWrapper" class="qr-container">
                     <h3 style="color: #333; margin-bottom: 10px; font-size: 16px;">Quét mã để thanh toán</h3>
                     <img id="qrImage" src="" alt="QR Code">
@@ -86,51 +72,24 @@
             </div>
 
             <div id="cardTab" class="tab-content">
-                <div class="step-box" style="border-left-color: #e74c3c;">
-                    <p style="color: #ccc; font-size: 14.5px; line-height: 1.6;">
-                        ⚠️ <b>Lưu ý:</b> Nạp thẻ cào sẽ bị <b>chiết khấu 20% - 30%</b> theo giá thị trường. Thẻ sẽ được Admin kiểm tra và <b>cộng tiền thủ công</b> sau 5 - 15 phút. Vui lòng chọn đúng mệnh giá, sai mệnh giá mất thẻ!
-                    </p>
-                </div>
-
-                <select id="cardType" class="input-box" style="appearance: auto;">
-                    <option value="">-- Chọn nhà mạng --</option>
-                    <option value="Viettel">Viettel</option>
-                    <option value="Vinaphone">Vinaphone</option>
-                    <option value="Mobifone">Mobifone</option>
-                    <option value="Zing">Thẻ Zing</option>
-                    <option value="Garena">Thẻ Garena</option>
-                </select>
-
-                <select id="cardValue" class="input-box" style="appearance: auto;">
-                    <option value="">-- Chọn mệnh giá thẻ --</option>
-                    <option value="10000">10.000 VNĐ</option>
-                    <option value="20000">20.000 VNĐ</option>
-                    <option value="50000">50.000 VNĐ</option>
-                    <option value="100000">100.000 VNĐ</option>
-                    <option value="200000">200.000 VNĐ</option>
-                    <option value="500000">500.000 VNĐ</option>
-                </select>
-
+                <div class="step-box" style="border-left-color: #e74c3c;"><p style="color: #ccc; font-size: 14.5px; line-height: 1.6;">⚠️ Thẻ bị <b>chiết khấu 20% - 30%</b>. Admin sẽ duyệt và cộng tiền thủ công sau 5-15p.</p></div>
+                <select id="cardType" class="input-box" style="appearance: auto;"><option value="">-- Chọn nhà mạng --</option><option value="Viettel">Viettel</option><option value="Vinaphone">Vinaphone</option><option value="Mobifone">Mobifone</option><option value="Zing">Thẻ Zing</option><option value="Garena">Thẻ Garena</option></select>
+                <select id="cardValue" class="input-box" style="appearance: auto;"><option value="">-- Chọn mệnh giá --</option><option value="10000">10.000 VNĐ</option><option value="20000">20.000 VNĐ</option><option value="50000">50.000 VNĐ</option><option value="100000">100.000 VNĐ</option><option value="200000">200.000 VNĐ</option><option value="500000">500.000 VNĐ</option></select>
                 <input type="text" id="cardSerial" class="input-box" placeholder="Nhập số Serial thẻ">
-                <input type="text" id="cardCode" class="input-box" placeholder="Nhập Mã thẻ">
-
-                <button class="cta-btn outline-btn" style="width: 100%; font-size: 16px; border-color: #e74c3c; color: gold;" onclick="submitCard()">Gửi Thẻ & Chờ Duyệt</button>
+                <input type="text" id="cardCode" class="input-box" placeholder="Nhập Mã thẻ (Mã PIN)">
+                <button class="cta-btn outline-btn" style="width: 100%; font-size: 16px; border-color: #e74c3c; color: white;" onclick="submitCard()">Gửi Thẻ & Chờ Duyệt</button>
             </div>
-
         </div>
     </main>
 
-    <div id="authModal" class="modal"><div class="modal-content glass-panel"><span class="close" onclick="document.getElementById('authModal').style.display='none'">&times;</span><h2 id="modalTitle" style="margin-bottom: 20px; color: #ffcc00;">Đăng nhập</h2><form id="authForm"><div id="displayNameContainer" style="display: none;"><input type="text" id="displayName" placeholder="Tên hiển thị (VD: Lôi Thần)"></div><input type="email" id="email" placeholder="Email của bạn" required><input type="password" id="password" placeholder="Mật khẩu (từ 6 ký tự)" required><button type="submit" class="cta-btn glow-btn" style="width: 100%; margin-top: 20px;">Xác nhận</button></form><p style="margin-top: 20px; text-align: center;"><a href="#" onclick="toggleAuthMode()" id="toggleAuthText" style="color: #aaaaaa; text-decoration: none; font-size: 14px; transition: 0.3s;">Chưa có tài khoản? <b>Đăng ký ngay</b></a></p></div></div>
+    <div id="authModal" class="modal"><div class="modal-content glass-panel"><span class="close" onclick="document.getElementById('authModal').style.display='none'">&times;</span><h2 id="modalTitle" style="margin-bottom: 20px; color: #ffcc00;">Đăng nhập</h2><form id="authForm"><div id="displayNameContainer" style="display: none;"><input type="text" id="displayName" placeholder="Tên hiển thị"></div><input type="email" id="email" placeholder="Email" required><input type="password" id="password" placeholder="Mật khẩu" required><button type="submit" class="cta-btn glow-btn" style="width: 100%; margin-top: 20px;">Xác nhận</button></form><p style="margin-top: 20px; text-align: center;"><a href="#" onclick="toggleAuthMode()" id="toggleAuthText" style="color: #aaaaaa; text-decoration: none; font-size: 14px;">Chưa có tài khoản? <b>Đăng ký</b></a></p></div></div>
     <div id="pbAlertModal" class="modal" style="z-index: 99999;"><div class="modal-content glass-panel" style="max-width: 320px; text-align: center; padding: 30px; border-color: #ffcc00;"><h2 id="pbAlertTitle" style="color: #ffcc00; margin-bottom: 15px; font-size: 22px;">⚡ P&B Thunder</h2><p id="pbAlertMessage" style="color: #dddddd; margin-bottom: 25px; line-height: 1.6; font-size: 15.5px;"></p><button class="cta-btn glow-btn" onclick="document.getElementById('pbAlertModal').style.display='none'" style="width: 100%;">Đã Hiểu</button></div></div>
 
     <script type="module" src="script.js"></script>
-
     <script>
-        // Chức năng chuyển Tab
         function switchTab(tabName) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
             if(tabName === 'bank') {
                 document.querySelectorAll('.tab-btn')[0].classList.add('active');
                 document.getElementById('bankTab').classList.add('active');
@@ -139,104 +98,55 @@
                 document.getElementById('cardTab').classList.add('active');
             }
         }
-
-        // TẠO MÃ QR NGÂN HÀNG
         window.generateQR = function() {
             if (!window.isUserLoggedIn || !window.currentUserUid) {
                 document.getElementById("pbAlertTitle").innerText = "⚠️ Cảnh Báo";
-                document.getElementById("pbAlertMessage").innerText = "Vui lòng đăng nhập để tạo mã nạp tiền!";
-                document.getElementById("pbAlertModal").style.display = "flex";
-                return;
+                document.getElementById("pbAlertMessage").innerText = "Vui lòng đăng nhập để tạo mã!";
+                document.getElementById("pbAlertModal").style.display = "flex"; return;
             }
-
             const amountInput = document.getElementById("topupAmount").value;
             if(!amountInput || amountInput < 10000) {
                 document.getElementById("pbAlertTitle").innerText = "❌ Lỗi";
-                document.getElementById("pbAlertMessage").innerText = "Số tiền nạp tối thiểu là 10.000 VNĐ";
-                document.getElementById("pbAlertModal").style.display = "flex";
-                return;
+                document.getElementById("pbAlertMessage").innerText = "Tối thiểu 10.000 VNĐ";
+                document.getElementById("pbAlertModal").style.display = "flex"; return;
             }
-
-            const BANK_ID = "MBBank"; 
-            const ACCOUNT_NO = "0898481579"; 
+            const BANK_ID = "MBBank"; const ACCOUNT_NO = "0898481579"; 
             const fullUid = window.currentUserUid.toUpperCase();
             const transferContent = "NAP " + fullUid;
             const encodedContent = encodeURIComponent(transferContent);
-
-            const qrUrl = "https://qr.sepay.vn/img?bank=" + BANK_ID + "&acc=" + ACCOUNT_NO + "&amount=" + amountInput + "&des=" + encodedContent;
-
-            document.getElementById("qrImage").src = qrUrl;
+            document.getElementById("qrImage").src = `https://qr.sepay.vn/img?bank=${BANK_ID}&acc=${ACCOUNT_NO}&amount=${amountInput}&des=${encodedContent}`;
             document.getElementById("qrSyntax").innerText = "Nội dung: " + transferContent;
             document.getElementById("qrWrapper").style.display = "block";
         }
-
-        // GỬI THẺ CÀO VỀ DISCORD
         window.submitCard = async function() {
             if (!window.isUserLoggedIn || !window.currentUserUid) {
                 document.getElementById("pbAlertTitle").innerText = "⚠️ Cảnh Báo";
-                document.getElementById("pbAlertMessage").innerText = "Vui lòng đăng nhập để nạp thẻ!";
-                document.getElementById("pbAlertModal").style.display = "flex";
-                return;
+                document.getElementById("pbAlertMessage").innerText = "Vui lòng đăng nhập!";
+                document.getElementById("pbAlertModal").style.display = "flex"; return;
             }
-
             const type = document.getElementById("cardType").value;
             const value = document.getElementById("cardValue").value;
             const serial = document.getElementById("cardSerial").value;
             const code = document.getElementById("cardCode").value;
-
             if(!type || !value || !serial || !code) {
                 document.getElementById("pbAlertTitle").innerText = "❌ Thiếu thông tin";
-                document.getElementById("pbAlertMessage").innerText = "Vui lòng điền đầy đủ Loại thẻ, Mệnh giá, Serial và Mã thẻ!";
-                document.getElementById("pbAlertModal").style.display = "flex";
-                return;
+                document.getElementById("pbAlertMessage").innerText = "Vui lòng điền đủ thông tin thẻ!";
+                document.getElementById("pbAlertModal").style.display = "flex"; return;
             }
-
-            document.getElementById("pbAlertTitle").innerText = "⏳ Đang gửi thẻ...";
-            document.getElementById("pbAlertMessage").innerText = "Hệ thống đang gửi thẻ cho Admin kiểm tra, vui lòng chờ...";
-            document.getElementById("pbAlertModal").style.display = "flex";
-
-            // === DÁN LINK DISCORD WEBHOOK CỦA BẠN VÀO ĐÂY ===
+            
+            // --- NHỚ DÁN LẠI LINK DISCORD VÀO ĐÂY NHA SẾP ---
             const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1479470294560411718/VzXUrhv49kUQNyE7WKHsyPCZyb7lpgwbcD-Gm3bidKqjCPiQDFebOxQ1pp0w8NBAEVFP";
 
-            const payload = {
-                embeds: [{
-                    title: "💳 CÓ KHÁCH NẠP THẺ CÀO MỚI",
-                    color: 15158332, // Màu đỏ
-                    fields: [
-                        { name: "👤 UID Khách hàng", value: `\`${window.currentUserUid}\``, inline: false },
-                        { name: "🏷️ Loại thẻ", value: type, inline: true },
-                        { name: "💰 Mệnh giá (Chưa chiết khấu)", value: `${parseInt(value).toLocaleString('vi-VN')} VNĐ`, inline: true },
-                        { name: "🔢 Số Serial", value: serial, inline: false },
-                        { name: "🔑 Mã thẻ (PIN)", value: code, inline: false }
-                    ],
-                    footer: { text: "P&B Thunder Auto-Bot" },
-                    timestamp: new Date().toISOString()
-                }]
-            };
-
+            const payload = { embeds: [{ title: "💳 CÓ KHÁCH NẠP THẺ CÀO", color: 15158332, fields: [ { name: "UID Khách", value: `\`${window.currentUserUid}\`` }, { name: "Loại", value: type, inline: true }, { name: "Mệnh giá", value: `${parseInt(value).toLocaleString('vi-VN')} VNĐ`, inline: true }, { name: "Serial", value: serial }, { name: "Mã PIN", value: code } ] }] };
             try {
-                const response = await fetch(DISCORD_WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
+                const response = await fetch(DISCORD_WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
                 if (response.ok) {
-                    document.getElementById("pbAlertTitle").innerText = "✅ Gửi Thẻ Thành Công!";
-                    document.getElementById("pbAlertMessage").innerText = "Thẻ của bạn đã được gửi cho Admin. Vui lòng chờ 5-15 phút để Admin kiểm tra và cộng tiền nhé!";
-                    
-                    // Reset form
-                    document.getElementById("cardType").value = "";
-                    document.getElementById("cardValue").value = "";
-                    document.getElementById("cardSerial").value = "";
-                    document.getElementById("cardCode").value = "";
-                } else {
-                    throw new Error("Discord API error");
+                    document.getElementById("pbAlertTitle").innerText = "✅ Gửi Thành Công!";
+                    document.getElementById("pbAlertMessage").innerText = "Thẻ đã được gửi. Vui lòng chờ Admin duyệt và cộng tiền!";
+                    document.getElementById("cardSerial").value = ""; document.getElementById("cardCode").value = "";
                 }
-            } catch (error) {
-                document.getElementById("pbAlertTitle").innerText = "❌ Lỗi Hệ Thống";
-                document.getElementById("pbAlertMessage").innerText = "Không thể kết nối tới máy chủ. Vui lòng liên hệ trực tiếp Admin!";
-            }
+            } catch (e) {}
+            document.getElementById("pbAlertModal").style.display = "flex";
         }
     </script>
 </body>
