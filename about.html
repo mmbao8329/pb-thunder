@@ -5,13 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giới Thiệu - P&B Thunder</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .story-panel { max-width: 800px; width: 100%; padding: 40px; text-align: left; line-height: 1.8; margin: 0 auto; }
+        .story-quote { background: rgba(255, 255, 255, 0.05); border-left: 4px solid #ff3366; padding: 15px 20px; border-radius: 8px; margin: 25px 0; }
+        .story-highlight { background: rgba(0, 255, 204, 0.05); border: 1px solid rgba(0, 255, 204, 0.3); padding: 20px; border-radius: 10px; margin: 25px 0; }
+        @media (max-width: 768px) {
+            .story-panel { padding: 25px 15px; }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <div class="logo" onclick="window.location.href='index.html'">
-            <span class="icon">⚡</span> P&B Thunder
-        </div>
+        <div class="logo" onclick="window.location.href='index.html'"><span class="icon">⚡</span> P&B Thunder</div>
         <button class="mobile-toggle" onclick="document.getElementById('headerRight').classList.toggle('show')">☰</button>
+        <div class="header-right" id="headerRight">
             <nav>
                 <a href="index.html">Trang chủ</a>
                 <a href="about.html" class="active">Giới thiệu</a>
@@ -19,7 +26,6 @@
                 <a href="naptien.html">Nạp tiền</a>
                 <a href="contact.html">Liên hệ</a>
             </nav>
-        <div class="header-right" id="headerRight">
             <div class="auth-buttons">
                 <button id="loginBtnTrigger" class="login-btn glow-btn" onclick="document.getElementById('authModal').style.display='flex'">Đăng nhập</button>
                 <div id="userProfile" style="display: none; align-items: center; gap: 15px;">
@@ -30,34 +36,96 @@
         </div>
     </header>
 
-    <main style="padding: 40px 20px; align-items: flex-start;">
-        <div class="hero-content about-box glass-panel" style="margin: 0 auto;">
-            <div class="about-header">
-                <h1 class="about-title">🔥✨ <span class="gradient-text">COLLAB PHONG x BẢO</span> ✨🔥</h1>
-                <h2 class="about-subtitle">ĐẰNG SAU ÁNH ĐÈN LÀ CẢ MỘT HÀNH TRÌNH DÀI CỦA SỰ NỖ LỰC</h2>
+    <main style="padding: 40px 20px; text-align: center; display: flex; flex-direction: column; align-items: center;">
+        
+        <div class="glass-panel story-panel">
+            <div style="text-align: center; margin-bottom: 35px;">
+                <h1 class="gradient-text" style="font-size: 32px; margin-bottom: 10px;">🔥✨ COLLAB PHONG x BẢO ✨🔥</h1>
+                <p style="color: #ffcc00; font-weight: bold; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Đằng sau ánh đèn là cả một hành trình dài của sự nỗ lực</p>
             </div>
-            <div class="about-content">
-                <p>Người ta chỉ thấy vài phút xuất hiện trước ống kính 📸<br>Chỉ thấy những khung hình đẹp 🎬<br>Chỉ thấy thành phẩm hoàn chỉnh 🎯</p>
-                <p class="highlight">Nhưng phía sau tất cả là cả một quá trình dài đầy cố gắng, áp lực và không ngừng hoàn thiện bản thân 💪</p>
-                <p>Có những ngày bắt đầu với rất nhiều năng lượng ☀️<br>Và kết thúc khi đồng hồ đã điểm khuya 🌙<br>Có những hôm tưởng như ý tưởng đã ổn rồi… nhưng vẫn quyết định làm lại từ đầu 🔁<br>Không phải vì bắt buộc — mà vì muốn mọi thứ phải thật sự tốt, thật sự xứng đáng ❤️‍🔥</p>
-                <p class="quote-box">💭 Có lúc bí ý tưởng.<br>😮‍💨 Có lúc mệt mỏi.<br>🤯 Có lúc áp lực vô hình đè nặng.</p>
-                <p>Nhưng thay vì bỏ cuộc ❌<br>Cả hai chọn cách ngồi lại với nhau 🤝<br>Chỉnh từng chi tiết nhỏ ✍️<br>Xem đi xem lại từng khung hình 🎞️<br>Tập đi tập lại đến khi mọi thứ thật sự trọn vẹn 🔥</p>
-                <p>Sự nỗ lực không phải lúc nào cũng ồn ào 📢<br>Nó nằm trong:<br>⏳ Hàng giờ chuẩn bị thầm lặng<br>📝 Những bản kế hoạch chỉnh sửa chi chít<br>🎧 Những lần nghe lại, xem lại không biết bao nhiêu lần<br>🔄 Những quyết định làm lại dù đã rất mệt</p>
-                <p class="italic-text">✨ Nỗ lực để mỗi sản phẩm đều có giá trị.<br>✨ Nỗ lực để không phụ lòng những người luôn ủng hộ.<br>✨ Nỗ lực để hôm nay tốt hơn hôm qua một chút.</p>
-                <p>Có thể mọi người chỉ thấy sự “cháy” trong vài phút ngắn ngủi 🔥🚀<br>Nhưng phía sau đó là mồ hôi 💦<br>Là thời gian ⏰<br>Là sự kiên trì không cho phép bản thân dừng lại 🧠</p>
-                <p>Không có thành công nào đến từ may mắn đơn thuần 🍀<br>Chỉ có sự nghiêm túc với công việc 📌<br>Sự tôn trọng từng sản phẩm mình làm ra 🎨<br>Và tinh thần không bỏ cuộc dù khó khăn đến đâu 🧗‍♂️</p>
-                <p style="margin-bottom: 25px;">Collab lần này không chỉ là một dự án 🎬<br>Mà là minh chứng cho việc:<br>Khi đủ quyết tâm ❤️‍🔥<br>Đủ tin tưởng 🤝<br>Đủ kiên trì 💯<br>Thì mọi giới hạn đều có thể vượt qua 🚀✨</p>
-                <div class="about-footer">
-                    <p class="footer-title">Cảm ơn tất cả những ai đã luôn theo dõi và ủng hộ 💖</p>
-                    <p class="footer-desc">Chính sự động viên của mọi người là động lực lớn nhất để tiếp tục cố gắng nhiều hơn nữa trong những chặng đường sắp tới 🌟</p>
-                </div>
+
+            <p style="color: #ccc; font-size: 16px; margin-bottom: 20px;">
+                Người ta chỉ thấy vài phút xuất hiện trước ống kính 📸<br>
+                Chỉ thấy những khung hình đẹp 🎞️<br>
+                Chỉ thấy thành phẩm hoàn chỉnh 🎯
+            </p>
+
+            <p style="color: #00ffcc; font-size: 18px; font-weight: bold; margin-bottom: 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 15px 0;">
+                Nhưng phía sau tất cả là cả một quá trình dài đầy cố gắng, áp lực và không ngừng hoàn thiện bản thân 💪
+            </p>
+
+            <p style="color: #ccc; font-size: 16px; margin-bottom: 20px;">
+                Có những ngày bắt đầu với rất nhiều năng lượng ☀️<br>
+                Và kết thúc khi đồng hồ đã điểm khuya 🌙<br>
+                Có những hôm tưởng như ý tưởng đã ổn rồi... nhưng vẫn quyết định làm lại từ đầu 🔂<br>
+                Không phải vì bắt buộc — mà vì muốn mọi thứ phải thật sự tốt, thật sự xứng đáng ❤️‍🔥
+            </p>
+
+            <div class="story-quote">
+                <p style="color: #ddd; margin: 5px 0; font-style: italic;">💭 Có lúc bí ý tưởng.</p>
+                <p style="color: #ddd; margin: 5px 0; font-style: italic;">😮‍💨 Có lúc mệt mỏi.</p>
+                <p style="color: #ddd; margin: 5px 0; font-style: italic;">🤯 Có lúc áp lực vô hình đè nặng.</p>
+            </div>
+
+            <p style="color: #ccc; font-size: 16px; margin-bottom: 20px;">
+                Nhưng thay vì bỏ cuộc ❌<br>
+                Cả hai chọn cách ngồi lại với nhau 🤝<br>
+                Chỉnh từng chi tiết nhỏ 🤏<br>
+                Xem đi xem lại từng khung hình 🎬<br>
+                Tập đi tập lại đến khi mọi thứ thật sự trọn vẹn 🔥
+            </p>
+
+            <div style="margin-bottom: 20px;">
+                <p style="color: #ffcc00; font-weight: bold; margin-bottom: 10px;">Sự nỗ lực không phải lúc nào cũng ồn ào 📢<br>Nó nằm trong:</p>
+                <ul style="color: #ccc; list-style-type: none; padding-left: 10px; line-height: 2;">
+                    <li>⏳ Hàng giờ chuẩn bị thầm lặng</li>
+                    <li>📝 Những bản kế hoạch chỉnh sửa chi chít</li>
+                    <li>🎧 Những lần nghe lại, xem lại không biết bao nhiêu lần</li>
+                    <li>🔄 Những quyết định làm lại dù đã rất mệt</li>
+                </ul>
+            </div>
+
+            <div class="story-highlight">
+                <p style="color: #00ffcc; margin: 5px 0; font-weight: 500;">✨ Nỗ lực để mỗi sản phẩm đều có giá trị.</p>
+                <p style="color: #00ffcc; margin: 5px 0; font-weight: 500;">✨ Nỗ lực để không phụ lòng những người luôn ủng hộ.</p>
+                <p style="color: #00ffcc; margin: 5px 0; font-weight: 500;">✨ Nỗ lực để hôm nay tốt hơn hôm qua một chút.</p>
+            </div>
+
+            <p style="color: #ccc; font-size: 16px; margin-bottom: 20px;">
+                Có thể mọi người chỉ thấy sự "cháy" trong vài phút ngắn ngủi 🔥🚀<br>
+                Nhưng phía sau đó là mồ hôi 💦<br>
+                Là thời gian ⏰<br>
+                Là sự kiên trì không cho phép bản thân dừng lại 🧠
+            </p>
+
+            <p style="color: #ccc; font-size: 16px; margin-bottom: 20px;">
+                Không có thành công nào đến từ may mắn đơn thuần 🍀<br>
+                Chỉ có sự nghiêm túc với công việc 🛠️<br>
+                Sự tôn trọng từng sản phẩm mình làm ra 🎨<br>
+                Và tinh thần không bỏ cuộc dù khó khăn đến đâu 🧗
+            </p>
+
+            <p style="color: #ccc; font-size: 16px; margin-bottom: 30px;">
+                Collab lần này không chỉ là một dự án 🎬<br>
+                Mà là minh chứng cho việc:<br>
+                Khi đủ quyết tâm ❤️‍🔥<br>
+                Đủ tin tưởng 🤝<br>
+                Đủ kiên trì 💯<br>
+                Thì mọi giới hạn đều có thể vượt qua 🚀✨
+            </p>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin-bottom: 25px;">
+
+            <div style="text-align: center;">
+                <p style="color: #ff3366; font-size: 16px; font-weight: bold; margin-bottom: 10px;">Cám ơn tất cả những ai đã luôn theo dõi và ủng hộ 💖</p>
+                <p style="color: #aaa; font-size: 14px;">Chính sự động viên của mọi người là động lực lớn nhất để tiếp tục cố gắng nhiều hơn nữa trong những chặng đường sắp tới 🌟</p>
             </div>
         </div>
     </main>
 
-    <div id="authModal" class="modal"><div class="modal-content glass-panel"><span class="close" onclick="document.getElementById('authModal').style.display='none'">&times;</span><h2 id="modalTitle" style="margin-bottom: 20px; color: #ffcc00;">Đăng nhập</h2><form id="authForm"><div id="displayNameContainer" style="display: none;"><input type="text" id="displayName" placeholder="Tên hiển thị (VD: Lôi Thần)"></div><input type="email" id="email" placeholder="Email của bạn" required><input type="password" id="password" placeholder="Mật khẩu (từ 6 ký tự)" required><button type="submit" class="cta-btn glow-btn" style="width: 100%; margin-top: 20px;">Xác nhận</button></form><p style="margin-top: 20px; text-align: center;"><a href="#" onclick="toggleAuthMode()" id="toggleAuthText" style="color: #aaaaaa; text-decoration: none; font-size: 14px; transition: 0.3s;">Chưa có tài khoản? <b>Đăng ký ngay</b></a></p></div></div>
-    <div id="pbAlertModal" class="modal" style="z-index: 99999;"><div class="modal-content glass-panel" style="max-width: 320px; text-align: center; padding: 30px; border-color: #ffcc00;"><h2 id="pbAlertTitle" style="color: #ffcc00; margin-bottom: 15px; font-size: 22px;">⚡ P&B Thunder</h2><p id="pbAlertMessage" style="color: #dddddd; margin-bottom: 25px; line-height: 1.6; font-size: 15.5px;"></p><button id="pbAlertBtn" class="cta-btn glow-btn" onclick="document.getElementById('pbAlertModal').style.display='none'" style="width: 100%;">Đã Hiểu</button></div></div>
-
+    <div id="authModal" class="modal"><div class="modal-content glass-panel"><span class="close" onclick="document.getElementById('authModal').style.display='none'">&times;</span><h2 id="modalTitle" style="margin-bottom: 20px; color: #ffcc00;">Đăng nhập</h2><form id="authForm"><div id="displayNameContainer" style="display: none;"><input type="text" id="displayName" placeholder="Tên hiển thị"></div><input type="email" id="email" placeholder="Email" required><input type="password" id="password" placeholder="Mật khẩu" required><button type="submit" class="cta-btn glow-btn" style="width: 100%; margin-top: 20px;">Xác nhận</button></form><p style="margin-top: 20px; text-align: center;"><a href="#" onclick="toggleAuthMode()" id="toggleAuthText" style="color: #aaaaaa; text-decoration: none; font-size: 14px;">Chưa có tài khoản? <b>Đăng ký</b></a></p></div></div>
+    <div id="pbAlertModal" class="modal" style="z-index: 99999;"><div class="modal-content glass-panel" style="max-width: 320px; text-align: center; padding: 30px; border-color: #ffcc00;"><h2 id="pbAlertTitle" style="color: #ffcc00; margin-bottom: 15px; font-size: 22px;">⚡ P&B Thunder</h2><p id="pbAlertMessage" style="color: #dddddd; margin-bottom: 25px; line-height: 1.6; font-size: 15.5px;"></p><button class="cta-btn glow-btn" onclick="document.getElementById('pbAlertModal').style.display='none'" style="width: 100%;">Đã Hiểu</button></div></div>
+    
     <script type="module" src="script.js"></script>
 </body>
 </html>
