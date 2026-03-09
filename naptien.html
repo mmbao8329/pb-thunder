@@ -118,11 +118,40 @@
             document.getElementById("qrSyntax").innerText = "Nội dung: " + transferContent;
             document.getElementById("qrWrapper").style.display = "block";
         }
-        window.submitCard = async function() {
+        window.submitCard = function() {
             if (!window.isUserLoggedIn || !window.currentUserUid) {
-                document.getElementById("pbAlertTitle").innerText = "⚠️ Cảnh Báo";
-                document.getElementById("pbAlertMessage").innerText = "Vui lòng đăng nhập!";
-                document.getElementById("pbAlertModal").style.display = "flex"; return;
+                showPbAlert("⚠️ Cảnh Báo", "Vui lòng đăng nhập!"); return;
+            }
+            const type = document.getElementById("cardType").value;
+            const value = document.getElementById("cardValue").value;
+            const serial = document.getElementById("cardSerial").value;
+            const code = document.getElementById("cardCode").value;
+            
+            if(!type || !value || !serial || !code) {
+                showPbAlert("❌ Thiếu thông tin", "Vui lòng điền đủ thông tin thẻ!"); return;
+            }
+            
+            showPbAlert("⏳ Đang xử lý...", "Vui lòng chờ hệ thống gửi thẻ...");
+
+            // Bắn dữ liệu thẻ ẩn qua Google Script
+            fetch(window.GOOGLE_API_URL, {
+                method: 'POST',
+                mode: 'no-cors', // Chống lỗi bảo mật trình duyệt
+                body: JSON.stringify({
+                    action: "submit_card",
+                    uid: window.currentUserUid,
+                    type: type,
+                    value: value,
+                    serial: serial,
+                    code: code
+                })
+            }).then(() => {
+                showPbAlert("✅ Thành Công!", "Thẻ đã được gửi vào Hệ Thống để kiểm tra. Số tiền sau chiết khấu sẽ tự động cộng sau 5-15p.");
+                document.getElementById("cardSerial").value = ""; document.getElementById("cardCode").value = "";
+            }).catch(() => {
+                showPbAlert("❌ Cảnh Báo", "Có lỗi mạng, vui lòng chụp màn hình gửi Admin.");
+            });
+
             }
             const type = document.getElementById("cardType").value;
             const value = document.getElementById("cardValue").value;
