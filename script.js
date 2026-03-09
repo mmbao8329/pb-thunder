@@ -19,7 +19,7 @@ window.isUserLoggedIn = false;
 window.currentUserUid = ""; 
 
 // === DÁN LINK GOOGLE SCRIPT URL (/exec) CỦA SẾP VÀO ĐÂY ===
-window.GOOGLE_API_URL = "https://script.google.com/macros/s/AKfycbx3FHd7oVaCyDZuO0fQmqJwQmvJMs4Zw38bi_akBc5jFMZJP2ECZ8ZlQM66vAPQRdYT/exec";
+window.GOOGLE_API_URL = "https://discord.com/api/webhooks/1479465893552586874/PcW8pLE31dOGgTIT0vGQ2jGWym2LIf1P8852lcGUnevOp_An8XiS3cwR_hyiGpr6kETu";
 
 window.showPbAlert = function(title, message) {
     document.getElementById("pbAlertTitle").innerHTML = title;

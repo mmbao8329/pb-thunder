@@ -86,7 +86,14 @@
     <div id="pbAlertModal" class="modal" style="z-index: 99999;"><div class="modal-content glass-panel" style="max-width: 320px; text-align: center; padding: 30px; border-color: #ffcc00;"><h2 id="pbAlertTitle" style="color: #ffcc00; margin-bottom: 15px; font-size: 22px;">⚡ P&B Thunder</h2><p id="pbAlertMessage" style="color: #dddddd; margin-bottom: 25px; line-height: 1.6; font-size: 15.5px;"></p><button class="cta-btn glow-btn" onclick="document.getElementById('pbAlertModal').style.display='none'" style="width: 100%;">Đã Hiểu</button></div></div>
 
     <script type="module" src="script.js"></script>
+
     <script>
+        function showPbAlertLocal(title, message) {
+            document.getElementById("pbAlertTitle").innerText = title;
+            document.getElementById("pbAlertMessage").innerText = message;
+            document.getElementById("pbAlertModal").style.display = "flex";
+        }
+
         function switchTab(tabName) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
@@ -98,19 +105,17 @@
                 document.getElementById('cardTab').classList.add('active');
             }
         }
+
         window.generateQR = function() {
             if (!window.isUserLoggedIn || !window.currentUserUid) {
-                document.getElementById("pbAlertTitle").innerText = "⚠️ Cảnh Báo";
-                document.getElementById("pbAlertMessage").innerText = "Vui lòng đăng nhập để tạo mã!";
-                document.getElementById("pbAlertModal").style.display = "flex"; return;
+                showPbAlertLocal("⚠️ Cảnh Báo", "Vui lòng đăng nhập để tạo mã!"); return;
             }
             const amountInput = document.getElementById("topupAmount").value;
             if(!amountInput || amountInput < 10000) {
-                document.getElementById("pbAlertTitle").innerText = "❌ Lỗi";
-                document.getElementById("pbAlertMessage").innerText = "Tối thiểu 10.000 VNĐ";
-                document.getElementById("pbAlertModal").style.display = "flex"; return;
+                showPbAlertLocal("❌ Lỗi", "Tối thiểu 10.000 VNĐ"); return;
             }
-            const BANK_ID = "MBBank"; const ACCOUNT_NO = "0898481579"; 
+            const BANK_ID = "MBBank"; 
+            const ACCOUNT_NO = "0898481579"; 
             const fullUid = window.currentUserUid.toUpperCase();
             const transferContent = "NAP " + fullUid;
             const encodedContent = encodeURIComponent(transferContent);
@@ -118,9 +123,10 @@
             document.getElementById("qrSyntax").innerText = "Nội dung: " + transferContent;
             document.getElementById("qrWrapper").style.display = "block";
         }
+
         window.submitCard = function() {
             if (!window.isUserLoggedIn || !window.currentUserUid) {
-                showPbAlert("⚠️ Cảnh Báo", "Vui lòng đăng nhập!"); return;
+                showPbAlertLocal("⚠️ Cảnh Báo", "Vui lòng đăng nhập để nạp thẻ!"); return;
             }
             const type = document.getElementById("cardType").value;
             const value = document.getElementById("cardValue").value;
@@ -128,15 +134,18 @@
             const code = document.getElementById("cardCode").value;
             
             if(!type || !value || !serial || !code) {
-                showPbAlert("❌ Thiếu thông tin", "Vui lòng điền đủ thông tin thẻ!"); return;
+                showPbAlertLocal("❌ Thiếu thông tin", "Vui lòng điền đủ thông tin thẻ!"); return;
             }
             
-            showPbAlert("⏳ Đang xử lý...", "Vui lòng chờ hệ thống gửi thẻ...");
+            if(!window.GOOGLE_API_URL) {
+                showPbAlertLocal("❌ Lỗi Hệ Thống", "Chưa kết nối API Google Script. Vui lòng báo Admin."); return;
+            }
 
-            // Bắn dữ liệu thẻ ẩn qua Google Script
+            showPbAlertLocal("⏳ Đang xử lý...", "Vui lòng chờ hệ thống gửi thẻ qua máy chủ...");
+
             fetch(window.GOOGLE_API_URL, {
                 method: 'POST',
-                mode: 'no-cors', // Chống lỗi bảo mật trình duyệt
+                mode: 'no-cors', // Cực kỳ quan trọng để không bị chặn bởi trình duyệt
                 body: JSON.stringify({
                     action: "submit_card",
                     uid: window.currentUserUid,
@@ -146,36 +155,12 @@
                     code: code
                 })
             }).then(() => {
-                showPbAlert("✅ Thành Công!", "Thẻ đã được gửi vào Hệ Thống để kiểm tra. Số tiền sau chiết khấu sẽ tự động cộng sau 5-15p.");
-                document.getElementById("cardSerial").value = ""; document.getElementById("cardCode").value = "";
+                showPbAlertLocal("✅ Thành Công!", "Thẻ đã gửi vào Hệ Thống chờ Admin duyệt. Tiền (sau chiết khấu) sẽ được cộng thẳng vào web trong 5-15p.");
+                document.getElementById("cardSerial").value = ""; 
+                document.getElementById("cardCode").value = "";
             }).catch(() => {
-                showPbAlert("❌ Cảnh Báo", "Có lỗi mạng, vui lòng chụp màn hình gửi Admin.");
+                showPbAlertLocal("❌ Cảnh Báo", "Lỗi kết nối mạng, vui lòng chụp màn hình báo cho Admin.");
             });
-
-            }
-            const type = document.getElementById("cardType").value;
-            const value = document.getElementById("cardValue").value;
-            const serial = document.getElementById("cardSerial").value;
-            const code = document.getElementById("cardCode").value;
-            if(!type || !value || !serial || !code) {
-                document.getElementById("pbAlertTitle").innerText = "❌ Thiếu thông tin";
-                document.getElementById("pbAlertMessage").innerText = "Vui lòng điền đủ thông tin thẻ!";
-                document.getElementById("pbAlertModal").style.display = "flex"; return;
-            }
-            
-            // --- NHỚ DÁN LẠI LINK DISCORD VÀO ĐÂY NHA SẾP ---
-            const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1479470294560411718/VzXUrhv49kUQNyE7WKHsyPCZyb7lpgwbcD-Gm3bidKqjCPiQDFebOxQ1pp0w8NBAEVFP";
-
-            const payload = { embeds: [{ title: "💳 CÓ KHÁCH NẠP THẺ CÀO", color: 15158332, fields: [ { name: "UID Khách", value: `\`${window.currentUserUid}\`` }, { name: "Loại", value: type, inline: true }, { name: "Mệnh giá", value: `${parseInt(value).toLocaleString('vi-VN')} VNĐ`, inline: true }, { name: "Serial", value: serial }, { name: "Mã PIN", value: code } ] }] };
-            try {
-                const response = await fetch(DISCORD_WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                if (response.ok) {
-                    document.getElementById("pbAlertTitle").innerText = "✅ Gửi Thành Công!";
-                    document.getElementById("pbAlertMessage").innerText = "Thẻ đã được gửi. Vui lòng chờ Admin duyệt và cộng tiền!";
-                    document.getElementById("cardSerial").value = ""; document.getElementById("cardCode").value = "";
-                }
-            } catch (e) {}
-            document.getElementById("pbAlertModal").style.display = "flex";
         }
     </script>
 </body>
