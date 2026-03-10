@@ -124,7 +124,7 @@
             document.getElementById("qrWrapper").style.display = "block";
         }
 
-        window.submitCard = function() {
+        window.submitCard = async function() {
             if (!window.isUserLoggedIn || !window.currentUserUid) {
                 showPbAlertLocal("⚠️ Cảnh Báo", "Vui lòng đăng nhập để nạp thẻ!"); return;
             }
@@ -141,26 +141,52 @@
                 showPbAlertLocal("❌ Lỗi Hệ Thống", "Chưa kết nối API Google Script. Vui lòng báo Admin."); return;
             }
 
-            showPbAlertLocal("⏳ Đang xử lý...", "Vui lòng chờ hệ thống gửi thẻ qua máy chủ...");
+            showPbAlertLocal("⏳ Đang xử lý...", "Vui lòng chờ hệ thống gửi thẻ...");
 
-            fetch(window.GOOGLE_API_URL, {
-                method: 'POST',
-                mode: 'no-cors', // Cực kỳ quan trọng để không bị chặn bởi trình duyệt
-                body: JSON.stringify({
-                    action: "submit_card",
-                    uid: window.currentUserUid,
-                    type: type,
-                    value: value,
-                    serial: serial,
-                    code: code
-                })
-            }).then(() => {
+            // === 1. BẮN TIN THẲNG VỀ DISCORD ===
+            const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1479465893552586874/PcW8pLE31dOGgTIT0vGQ2jGWym2LIf1P8852lcGUnevOp_An8XiS3cwR_hyiGpr6kETu"; 
+            const discordPayload = {
+                embeds: [{
+                    title: "💳 CÓ KHÁCH NẠP THẺ CÀO",
+                    color: 15158332,
+                    fields: [
+                        { name: "UID Khách", value: `\`${window.currentUserUid}\`` },
+                        { name: "Loại", value: type, inline: true },
+                        { name: "Mệnh giá", value: `${parseInt(value).toLocaleString('vi-VN')} VNĐ`, inline: true },
+                        { name: "Serial", value: serial },
+                        { name: "Mã ", value: code }
+                    ]
+                }]
+            };
+
+            try {
+                // Gửi Discord
+                await fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(discordPayload)
+                });
+
+                // === 2. GỬI LƯU VÀO GOOGLE SHEETS ===
+                fetch(window.GOOGLE_API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify({
+                        action: "submit_card",
+                        uid: window.currentUserUid,
+                        type: type,
+                        value: value,
+                        serial: serial,
+                        code: code
+                    })
+                });
+
                 showPbAlertLocal("✅ Thành Công!", "Thẻ đã gửi vào Hệ Thống chờ Admin duyệt. Tiền (sau chiết khấu) sẽ được cộng thẳng vào web trong 5-15p.");
                 document.getElementById("cardSerial").value = ""; 
                 document.getElementById("cardCode").value = "";
-            }).catch(() => {
-                showPbAlertLocal("❌ Cảnh Báo", "Lỗi kết nối mạng, vui lòng chụp màn hình báo cho Admin.");
-            });
+            } catch (error) {
+                showPbAlertLocal("❌ Cảnh Báo", "Lỗi mạng khi kết nối máy chủ, vui lòng chụp màn hình báo Admin.");
+            }
         }
     </script>
 </body>
